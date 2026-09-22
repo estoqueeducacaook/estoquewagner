@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verdade Viva — Palavra do dia para conhecer e adorar a Deus</title>
+<meta name="description" content="Uma palavra da Bíblia para cada dia, com reflexão, oração e momentos de silêncio para conhecer e adorar a Deus.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F0F5F4; --surface:#FAFCFB; --surface-2:#E3EDEC;
+  --ink:#15303A; --ink-2:#48606A; --line:#C9D8D8;
+  --accent:#2B6E78; --focus:#1E5B9C;
+  --btn-bg:#15303A; --btn-fg:#F0F5F4;
+  --header-bg:rgba(240,245,244,.88);
+  --sky-1:#AFCFD8; --sky-2:#D5E7E5; --sky-3:#F7E6BE; --sun:#F6C86A;
+  --mtn-1:#A9C6CB; --mtn-2:#86ACB3;
+  --lake-1:#93BDC5; --lake-2:#5F98A2;
+  --hero-ink:#15303A; --hero-ink-2:#33505A;
+  --hero-btn:rgba(255,255,255,.62); --hero-line:rgba(21,48,58,.22);
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"Figtree", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --pad:clamp(1.25rem,5vw,3rem);
+  --lake-h:170px;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1920; --surface:#132630; --surface-2:#1A3440;
+    --ink:#E8F1F0; --ink-2:#A9BEC2; --line:#27444F;
+    --accent:#86C8D0; --focus:#8CC4FF;
+    --btn-bg:#E8F1F0; --btn-fg:#0D1920;
+    --header-bg:rgba(13,25,32,.88);
+    --sky-1:#0A1520; --sky-2:#12303A; --sky-3:#77613F; --sun:#E7B463;
+    --mtn-1:#17343E; --mtn-2:#0F252E;
+    --lake-1:#12303A; --lake-2:#0B1D25;
+    --hero-ink:#EDF4F3; --hero-ink-2:#BACDD0;
+    --hero-btn:rgba(255,255,255,.1); --hero-line:rgba(255,255,255,.26);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1920; --surface:#132630; --surface-2:#1A3440;
+  --ink:#E8F1F0; --ink-2:#A9BEC2; --line:#27444F;
+  --accent:#86C8D0; --focus:#8CC4FF;
+  --btn-bg:#E8F1F0; --btn-fg:#0D1920;
+  --header-bg:rgba(13,25,32,.88);
+  --sky-1:#0A1520; --sky-2:#12303A; --sky-3:#77613F; --sun:#E7B463;
+  --mtn-1:#17343E; --mtn-2:#0F252E;
+  --lake-1:#12303A; --lake-2:#0B1D25;
+  --hero-ink:#EDF4F3; --hero-ink-2:#BACDD0;
+  --hero-btn:rgba(255,255,255,.1); --hero-line:rgba(255,255,255,.26);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 6.5rem);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15;margin:0;color:var(--ink)}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:var(--pad)}
+
+/* Cabeçalho */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--header-bg);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.hdr{max-width:1120px;margin:0 auto;padding:.65rem var(--pad);display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.5rem;font-family:var(--serif);font-weight:600;font-size:1.4rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.brand svg{width:26px;height:26px;color:var(--accent);flex:none}
+.nav{display:flex;gap:.15rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:.45rem .85rem;border-radius:999px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:.95rem;white-space:nowrap}
+.nav a:hover{color:var(--ink);background:var(--surface-2)}
+.nav a[aria-current="true"]{color:var(--ink);background:var(--surface-2)}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:transparent;display:inline-grid;place-items:center;color:var(--ink);flex:none}
+.icon-btn:hover{background:var(--surface-2)}
+.icon-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn .i-sun{display:none}
+:root[data-theme="dark"] .theme-btn .i-sun{display:block}
+:root[data-theme="dark"] .theme-btn .i-moon{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .theme-btn .i-sun{display:block}
+  :root:not([data-theme="light"]) .theme-btn .i-moon{display:none}
+}
+@media (max-width:860px){
+  .nav{order:3;width:100%;margin-left:0}
+  .theme-btn{margin-left:auto}
+}
+
+/* Hero: lago ao amanhecer */
+.hero{position:relative;overflow:hidden;color:var(--hero-ink);isolation:isolate}
+.scene{position:absolute;inset:0;z-index:-1}
+.sky{position:absolute;left:0;right:0;top:0;bottom:var(--lake-h);background:linear-gradient(180deg,var(--sky-1) 0%,var(--sky-2) 58%,var(--sky-3) 100%)}
+.sun{position:absolute;bottom:calc(var(--lake-h) - 70px);left:70%;width:250px;height:250px;margin-left:-125px;border-radius:50%;background:radial-gradient(circle,var(--sun) 0%,color-mix(in srgb,var(--sun) 55%,transparent) 30%,transparent 68%)}
+.mtn{position:absolute;left:0;width:100%;bottom:var(--lake-h);height:110px;display:block}
+.mtn .m1{fill:var(--mtn-1)} .mtn .m2{fill:var(--mtn-2)}
+.lake{position:absolute;left:0;right:0;bottom:0;height:var(--lake-h);background:linear-gradient(180deg,var(--lake-1),var(--lake-2));overflow:hidden;cursor:pointer;touch-action:manipulation}
+.lake::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.16) 0 1px,transparent 1px 9px);opacity:.55;animation:drift 16s linear infinite}
+.lake .glint{position:absolute;top:0;bottom:0;left:70%;width:110px;margin-left:-55px;background:linear-gradient(180deg,color-mix(in srgb,var(--sun) 80%,transparent),transparent);-webkit-mask-image:repeating-linear-gradient(180deg,#000 0 5px,transparent 5px 11px);mask-image:repeating-linear-gradient(180deg,#000 0 5px,transparent 5px 11px);opacity:.75;animation:shimmer 7s ease-in-out infinite}
+.lake-hint{position:absolute;left:0;right:0;bottom:.9rem;text-align:center;font-size:.85rem;color:var(--hero-ink-2);transition:opacity .6s}
+.lake-hint.gone{opacity:0}
+.ripple{position:absolute;width:14px;height:14px;border:1.5px solid rgba(255,255,255,.8);border-radius:50%;transform:translate(-50%,-50%) scale(1,.34);opacity:0;animation:ripple 2.8s ease-out forwards;pointer-events:none}
+@keyframes ripple{0%{opacity:.95;transform:translate(-50%,-50%) scale(1,.34)}100%{opacity:0;transform:translate(-50%,-50%) scale(24,8.2)}}
+@keyframes shimmer{0%,100%{opacity:.5}50%{opacity:.85}}
+@keyframes drift{from{background-position:0 0}to{background-position:0 9px}}
+
+.hero-inner{max-width:900px;margin:0 auto;padding:clamp(1.75rem,4vw,3rem) var(--pad) calc(var(--lake-h) + 4.75rem);text-align:center}
+.daynav{display:inline-flex;align-items:center;gap:.5rem}
+.daynav .icon-btn{background:var(--hero-btn);border-color:var(--hero-line);color:var(--hero-ink)}
+.daynav .icon-btn:hover{background:var(--hero-btn);filter:brightness(1.06)}
+.daynav .icon-btn:disabled{opacity:.35;cursor:not-allowed}
+.daymeta{min-width:11rem;line-height:1.3}
+.daymeta strong{display:block;font-weight:600;font-size:1rem;color:var(--hero-ink)}
+.daymeta time{font-size:.9rem;color:var(--hero-ink-2)}
+.today-link{display:block;margin:.35rem auto 0;background:none;border:0;color:var(--hero-ink);font-weight:600;font-size:.9rem;text-decoration:underline;text-underline-offset:3px;padding:.35rem .5rem}
+.hero h1{font-size:clamp(1.25rem,2.2vw,1.6rem);font-weight:500;color:var(--hero-ink-2);margin-top:clamp(1.75rem,4vw,2.75rem)}
+.verse{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.75rem,4vw,3rem);line-height:1.25;letter-spacing:-.005em;max-width:32ch;margin:1rem auto 0;color:var(--hero-ink);text-wrap:balance}
+.verse-ref{margin-top:1.15rem;font-weight:600;font-size:1.05rem;letter-spacing:.02em;color:var(--hero-ink-2)}
+.actions{margin-top:clamp(1.75rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:0 1.2rem;border-radius:999px;border:1px solid transparent;font-weight:600;font-size:.97rem;text-decoration:none;line-height:1;transition:transform .15s,background .15s,filter .15s}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--btn-bg);color:var(--btn-fg)}
+.btn-primary:hover{filter:brightness(1.12)}
+.btn-soft{background:var(--hero-btn);color:var(--hero-ink);border-color:var(--hero-line)}
+.btn-soft:hover{filter:brightness(1.06)}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-line:hover{background:var(--surface-2)}
+[aria-pressed="true"] > .heart{fill:currentColor}
+.fresh{animation:fresh .5s ease both}
+@keyframes fresh{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Seções */
+.section{padding-block:clamp(4rem,9vw,7rem)}
+.section-tint{background:var(--surface-2)}
+.h2{font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.012em}
+.lead{color:var(--ink-2);max-width:56ch;margin-top:1rem;font-size:1.1rem}
+
+/* Reflexão */
+.reflection{max-width:680px;margin:0 auto}
+.reflection .h2{margin-bottom:1.75rem}
+.reflection p{font-family:var(--serif);font-size:1.28rem;line-height:1.75;color:var(--ink)}
+.quote{margin:1.75rem 0;padding-left:1.35rem;border-left:3px solid var(--accent)}
+.quote blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:1.32rem;line-height:1.55;color:var(--ink)}
+.quote figcaption{margin-top:.5rem;font-family:var(--sans);font-size:.92rem;font-weight:600;color:var(--ink-2)}
+.prayer{margin-top:2.75rem;padding:clamp(1.5rem,4vw,2.25rem);background:var(--surface-2);border-radius:28px}
+.prayer h3{font-size:1.5rem;display:flex;align-items:center;gap:.6rem}
+.prayer h3 svg{width:22px;height:22px;color:var(--accent);flex:none}
+.prayer p{margin-top:.9rem;font-size:1.22rem}
+
+/* Conhecer a Deus */
+.know{display:grid;grid-template-columns:minmax(210px,290px) 1fr;gap:clamp(2rem,5vw,4rem);margin-top:2.75rem;align-items:start}
+.attr-list{display:flex;flex-direction:column;gap:.25rem}
+.attr-list button{text-align:left;background:transparent;border:0;border-radius:14px;padding:.8rem 1.05rem;font-weight:500;color:var(--ink-2);font-size:1.02rem}
+.attr-list button:hover{background:color-mix(in srgb,var(--surface) 60%,transparent);color:var(--ink)}
+.attr-list button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--accent)}
+.attr-panel{background:var(--surface);border-radius:28px;padding:clamp(1.75rem,4.5vw,3rem);min-height:22rem;display:flex;flex-direction:column;gap:1.5rem}
+.attr-panel h3{font-size:clamp(1.9rem,3.6vw,2.6rem);letter-spacing:-.01em}
+.attr-panel .quote blockquote{font-size:1.5rem}
+.attr-panel p{max-width:58ch;color:var(--ink-2)}
+.attr-panel .btn{align-self:flex-start;margin-top:auto}
+@media (max-width:820px){
+  .know{grid-template-columns:1fr;gap:1.25rem}
+  .attr-list{flex-direction:row;overflow-x:auto;scrollbar-width:none;gap:.4rem;padding-bottom:.25rem}
+  .attr-list::-webkit-scrollbar{display:none}
+  .attr-list button{white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:.55rem 1rem}
+  .attr-list button[aria-selected="true"]{box-shadow:none;border-color:var(--accent)}
+}
+
+/* Adorar */
+.worship{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+.worship .quote{margin-top:2.25rem}
+.worship .quote blockquote{font-size:1.7rem}
+.psalms h3{font-size:1.5rem;margin-bottom:1rem}
+.psalms details{border-top:1px solid var(--line)}
+.psalms details:last-of-type{border-bottom:1px solid var(--line)}
+.psalms summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:1rem;padding:1rem .25rem}
+.psalms summary::-webkit-details-marker{display:none}
+.psalms summary b{font-family:var(--serif);font-weight:500;font-size:1.3rem}
+.psalms summary span{color:var(--ink-2);font-size:.98rem;margin-left:auto;text-align:right}
+.psalms summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--accent);margin-left:.5rem;transition:transform .2s}
+.psalms details[open] summary::after{transform:rotate(45deg)}
+.psalms details p{padding:0 .25rem 1.25rem;color:var(--ink-2);max-width:54ch}
+@media (max-width:820px){.worship{grid-template-columns:1fr}}
+
+/* Silêncio (sempre noturno) */
+.stillness{background:linear-gradient(180deg,#10303A 0%,#0A1B22 100%);color:#EAF3F2;text-align:center}
+.stillness h2{color:#EAF3F2}
+.stillness .lead{color:#B5CACD;margin-inline:auto}
+.breath{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:3rem auto 2rem;display:grid;place-items:center}
+.orb{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#8CD0D8,#2B6E78 62%,#1B4A52);box-shadow:0 0 70px rgba(134,200,208,.35);transform:scale(.88);transition:transform 4s ease-in-out}
+.breath[data-phase="in"] .orb{transform:scale(1.12)}
+.breath[data-phase="out"] .orb{transform:scale(.78)}
+.breath::before,.breath::after{content:"";position:absolute;inset:14%;border-radius:50%;border:1.5px solid rgba(180,225,230,.5);opacity:0}
+.breath.running::before{animation:halo 8s ease-out infinite}
+.breath.running::after{animation:halo 8s ease-out 4s infinite}
+@keyframes halo{0%{opacity:.7;transform:scale(.9)}100%{opacity:0;transform:scale(1.55)}}
+.breath-text{position:relative;z-index:1;padding:0 1.5rem;max-width:16ch}
+.breath-text small{display:block;font-size:.9rem;color:#D3E6E8;letter-spacing:.03em}
+.breath-text span{display:block;font-family:var(--serif);font-style:italic;font-size:1.5rem;line-height:1.25;margin-top:.25rem;color:#fff}
+.timer{font-variant-numeric:tabular-nums;font-size:1.1rem;color:#B5CACD;min-height:1.7rem}
+.seg{display:inline-flex;gap:.3rem;padding:.3rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;margin-top:1.25rem}
+.seg button{background:transparent;border:0;border-radius:999px;padding:.5rem 1.05rem;color:#B5CACD;font-weight:600;font-size:.95rem;min-height:40px}
+.seg button[aria-pressed="true"]{background:#EAF3F2;color:#0A1B22}
+.seg button:disabled{opacity:.5;cursor:not-allowed}
+.stillness .btn-primary{background:#EAF3F2;color:#0A1B22;margin-top:1.5rem;min-width:11rem}
+.stillness :focus-visible{outline-color:#8CC4FF}
+
+/* Temas */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
+.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:.5rem 1.15rem;font-weight:600;font-size:.97rem;color:var(--ink-2);min-height:42px}
+.chip:hover{background:var(--surface-2);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
+.verse-rows{margin-top:2.25rem}
+.vrow{display:flex;gap:1.5rem;align-items:flex-start;justify-content:space-between;padding:1.5rem 0;border-top:1px solid var(--line)}
+.vrow:last-child{border-bottom:1px solid var(--line)}
+.vrow blockquote{margin:0;font-family:var(--serif);font-size:1.4rem;line-height:1.5;max-width:52ch}
+.vrow cite{display:block;margin-top:.5rem;font-family:var(--sans);font-style:normal;font-weight:600;font-size:.92rem;color:var(--ink-2)}
+.vrow .tools{display:flex;gap:.4rem;flex:none}
+.icon-btn.sm{width:40px;height:40px}
+.icon-btn[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+.icon-btn[aria-pressed="true"] .heart{fill:currentColor}
+@media (max-width:640px){.vrow{flex-direction:column;gap:1rem}}
+
+/* Diário */
+.journal{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);margin-top:2.5rem;align-items:start}
+.j-form label{display:block;font-family:var(--serif);font-size:1.5rem;line-height:1.3;margin-bottom:1rem}
+.j-form textarea{width:100%;min-height:180px;resize:vertical;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:20px;padding:1.1rem 1.25rem;font:inherit;line-height:1.6}
+.j-form textarea::placeholder{color:var(--ink-2);opacity:.8}
+.j-form .row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+.j-note{font-size:.92rem;color:var(--ink-2)}
+.tabs{display:flex;gap:.4rem;margin-bottom:1.25rem}
+.tabs button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:.5rem 1.05rem;font-weight:600;font-size:.95rem;color:var(--ink-2);min-height:42px}
+.tabs button[aria-selected="true"]{background:var(--btn-bg);color:var(--btn-fg);border-color:var(--btn-bg)}
+.entry{background:var(--surface);border-radius:20px;padding:1.1rem 1.25rem;margin-bottom:.75rem}
+.entry time{display:block;font-size:.88rem;font-weight:600;color:var(--ink-2)}
+.entry p{margin-top:.35rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.entry blockquote{margin:.35rem 0 0;font-family:var(--serif);font-size:1.15rem;line-height:1.5}
+.entry .e-tools{display:flex;gap:.25rem;margin-top:.6rem}
+.link-btn{background:none;border:0;padding:.35rem .5rem;font-size:.9rem;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px;min-height:36px}
+.empty{color:var(--ink-2);padding:.5rem .25rem}
+@media (max-width:820px){.journal{grid-template-columns:1fr}}
+
+/* Rodapé */
+.footer{background:#0A1B22;color:#B5CACD;padding-block:3.5rem}
+.footer .brand{color:#EAF3F2}
+.footer .brand svg{color:#86C8D0}
+.foot-grid{display:flex;gap:2rem 4rem;flex-wrap:wrap;justify-content:space-between}
+.footer p{max-width:44ch;margin-top:.9rem;font-size:.98rem}
+.footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem}
+.footer nav a{color:#D3E6E8;text-decoration:none;font-weight:500}
+.footer nav a:hover{text-decoration:underline}
+.fine{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.14);font-size:.88rem;color:#93AAAE}
+.footer :focus-visible{outline-color:#8CC4FF}
+
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--btn-bg);color:var(--btn-fg);padding:.75rem 1.25rem;border-radius:999px;font-weight:600;font-size:.95rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:100;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hdr">
+    <a class="brand" href="#hoje" aria-label="Verdade Viva — início">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6c3.6 4.5 6 7.7 6 11a6 6 0 0 1-12 0c0-3.3 2.4-6.5 6-11z"/><path d="M9.2 14.6a3 3 0 0 0 2.8 2.8"/></svg>
+      Verdade Viva
+    </a>
+    <nav class="nav" aria-label="Seções do site" id="nav">
+      <a href="#hoje" data-s="hoje">Hoje</a>
+      <a href="#conhecer" data-s="conhecer">Conhecer a Deus</a>
+      <a href="#adorar" data-s="adorar">Adorar</a>
+      <a href="#silencio" data-s="silencio">Silêncio</a>
+      <a href="#temas" data-s="temas">Temas</a>
+      <a href="#diario" data-s="diario">Diário</a>
+    </nav>
+    <button class="icon-btn theme-btn" id="themeBtn" type="button" aria-label="Alternar entre tema claro e escuro">
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+<div id="hoje">
+
+  <section class="hero" aria-labelledby="dayTitle">
+    <div class="scene" aria-hidden="true">
+      <div class="sky"></div>
+      <div class="sun"></div>
+      <svg class="mtn" viewBox="0 0 1200 110" preserveAspectRatio="none"><path class="m1" d="M0 70 L130 34 L240 64 L380 22 L520 66 L650 40 L790 72 L930 30 L1070 62 L1200 44 L1200 110 L0 110Z"/><path class="m2" d="M0 92 L160 62 L300 86 L470 58 L620 90 L780 66 L940 92 L1090 70 L1200 84 L1200 110 L0 110Z"/></svg>
+      <div class="lake" id="lake"><div class="glint"></div><div class="lake-hint" id="lakeHint">Toque na água</div></div>
+    </div>
+
+    <div class="hero-inner" id="heroInner">
+      <div class="daynav">
+        <button class="icon-btn" id="prevDay" type="button" aria-label="Palavra do dia anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="daymeta"><strong id="dayRel">Palavra de hoje</strong><time id="dayDate"></time></div>
+        <button class="icon-btn" id="nextDay" type="button" aria-label="Próxima palavra do dia"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <button class="today-link" id="todayBtn" type="button" hidden>Voltar para hoje</button>
+
+      <h1 id="dayTitle"></h1>
+      <p class="verse" id="verseText"></p>
+      <p class="verse-ref" id="verseRef"></p>
+
+      <div class="actions">
+        <button class="btn btn-primary" id="favBtn" type="button" aria-pressed="false">
+          <svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+          <span id="favLabel">Guardar</span>
+        </button>
+        <button class="btn btn-soft" id="copyBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+          Copiar
+        </button>
+        <a class="btn btn-soft" id="waBtn" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.4-4.2A8 8 0 1 1 8.4 18.7L4 20z"/></svg>
+          Enviar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="reflexao" aria-labelledby="reflexaoTitulo" style="padding-top:clamp(3rem,7vw,5rem)">
+    <div class="wrap">
+      <article class="reflection" id="reflection">
+        <h2 class="h2" id="reflexaoTitulo">Reflexão</h2>
+        <div id="reflBody"></div>
+        <aside class="prayer" aria-labelledby="prayerTitle">
+          <h3 id="prayerTitle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6c3.6 4.5 6 7.7 6 11a6 6 0 0 1-12 0c0-3.3 2.4-6.5 6-11z"/></svg>
+            Oração para este dia
+          </h3>
+          <p id="prayerText"></p>
+        </aside>
+      </article>
+    </div>
+  </section>
+</div>
+
+<section class="section section-tint" id="conhecer" aria-labelledby="conhecerTitulo" data-s="conhecer">
+  <div class="wrap">
+    <h2 class="h2" id="conhecerTitulo">Quem é Deus?</h2>
+    <p class="lead">Conhecer a Deus é a base da adoração. Escolha um aspecto do caráter de Deus e veja o que a Bíblia diz sobre ele.</p>
+    <div class="know">
+      <div class="attr-list" role="tablist" aria-label="Aspectos do caráter de Deus" id="attrList"></div>
+      <div class="attr-panel" id="attrPanel" role="tabpanel" tabindex="0" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="adorar" aria-labelledby="adorarTitulo" data-s="adorar">
+  <div class="wrap worship">
+    <div>
+      <h2 class="h2" id="adorarTitulo">Adorar é responder a quem Deus é</h2>
+      <p class="lead">A adoração não se resume a um lugar, a um estilo de música ou a um horário. É a vida inteira voltada para Deus, com gratidão e reverência.</p>
+      <figure class="quote">
+        <blockquote>“Deus é Espírito, e os que o adoram devem adorá-lo em espírito e em verdade.”</blockquote>
+        <figcaption>João 4:24</figcaption>
+      </figure>
+    </div>
+    <div class="psalms">
+      <h3>Salmos para orar</h3>
+      <details>
+        <summary><b>Salmo 23</b><span>Para descansar</span></summary>
+        <p>Leia devagar, uma frase por vez. O Pastor guia, cuida e permanece com você, inclusive nos vales. Transforme cada frase em agradecimento.</p>
+      </details>
+      <details>
+        <summary><b>Salmo 27</b><span>Para vencer o medo</span></summary>
+        <p>Davi enfrenta ameaças reais e escolhe olhar para a luz e a salvação que vêm de Deus. Diga a Deus, com suas palavras, do que você tem medo.</p>
+      </details>
+      <details>
+        <summary><b>Salmo 63</b><span>Para buscar a Deus cedo</span></summary>
+        <p>Um salmo para as primeiras horas do dia. Ele fala de sede de Deus e de satisfação em sua presença. Ideal para orar antes de começar as tarefas.</p>
+      </details>
+      <details>
+        <summary><b>Salmo 100</b><span>Para agradecer</span></summary>
+        <p>Um convite curto e alegre para entrar na presença de Deus com gratidão. Leia em voz alta e complete a frase: “Senhor, sou grato por…”.</p>
+      </details>
+      <details>
+        <summary><b>Salmo 121</b><span>Para pedir socorro</span></summary>
+        <p>Quando você não sabe de onde virá a ajuda, este salmo lembra que o Senhor guarda quem o busca, de dia e de noite.</p>
+      </details>
+      <details>
+        <summary><b>Salmo 139</b><span>Para ser conhecido por Deus</span></summary>
+        <p>Antes de nós conhecermos a Deus, ele já nos conhece por inteiro. Leia e deixe que essa verdade traga segurança e humildade.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="section stillness" id="silencio" aria-labelledby="silencioTitulo" data-s="silencio">
+  <div class="wrap">
+    <h2 class="h2" id="silencioTitulo">Momento de silêncio</h2>
+    <p class="lead">Respire no ritmo de Salmos 46:10. Ao inspirar, diga “Aquietai-vos”. Ao expirar, “e sabei que eu sou Deus”.</p>
+
+    <div class="breath" id="breath" data-phase="idle">
+      <div class="orb"></div>
+      <div class="breath-text"><small id="bLabel">Pronto para começar</small><span id="bPhrase">Aquietai-vos</span></div>
+    </div>
+    <div class="timer" id="timer" role="timer" aria-live="off">03:00</div>
+    <div class="seg" role="group" aria-label="Duração">
+      <button type="button" data-min="1" aria-pressed="false">1 min</button>
+      <button type="button" data-min="3" aria-pressed="true">3 min</button>
+      <button type="button" data-min="5" aria-pressed="false">5 min</button>
+    </div>
+    <div><button class="btn btn-primary" id="silBtn" type="button">Iniciar</button></div>
+  </div>
+</section>
+
+<section class="section" id="temas" aria-labelledby="temasTitulo" data-s="temas">
+  <div class="wrap">
+    <h2 class="h2" id="temasTitulo">O que a Bíblia diz sobre…</h2>
+    <p class="lead">Escolha o que você precisa ouvir de Deus hoje. Copie um versículo ou guarde para ler depois.</p>
+    <div class="chips" id="chips" role="group" aria-label="Temas"></div>
+    <div class="verse-rows" id="verseRows"></div>
+  </div>
+</section>
+
+<section class="section section-tint" id="diario" aria-labelledby="diarioTitulo" data-s="diario">
+  <div class="wrap">
+    <h2 class="h2" id="diarioTitulo">Seu diário com Deus</h2>
+    <p class="lead">Registre agradecimentos, orações e o que Deus lhe mostrou. Tudo fica salvo apenas neste aparelho, e ninguém mais lê.</p>
+    <div class="journal">
+      <div class="j-form">
+        <label for="jText" id="jPrompt"></label>
+        <textarea id="jText" placeholder="Escreva aqui com suas palavras…"></textarea>
+        <div class="row">
+          <button class="btn btn-primary" id="jSave" type="button">Salvar anotação</button>
+          <span class="j-note">Salvo somente neste aparelho.</span>
+        </div>
+      </div>
+      <div>
+        <div class="tabs" role="tablist" aria-label="Meus registros">
+          <button type="button" role="tab" id="tabNotes" aria-selected="true" aria-controls="listNotes">Anotações</button>
+          <button type="button" role="tab" id="tabFavs" aria-selected="false" aria-controls="listFavs">Versículos guardados</button>
+        </div>
+        <div id="listNotes" role="tabpanel" aria-labelledby="tabNotes"></div>
+        <div id="listFavs" role="tabpanel" aria-labelledby="tabFavs" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#hoje">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6c3.6 4.5 6 7.7 6 11a6 6 0 0 1-12 0c0-3.3 2.4-6.5 6-11z"/><path d="M9.2 14.6a3 3 0 0 0 2.8 2.8"/></svg>
+          Verdade Viva
+        </a>
+        <p>Um lugar tranquilo para ouvir a Palavra de Deus, conhecê-lo melhor e responder com adoração.</p>
+      </div>
+      <nav aria-label="Rodapé">
+        <a href="#hoje">Palavra de hoje</a>
+        <a href="#conhecer">Conhecer a Deus</a>
+        <a href="#adorar">Adorar</a>
+        <a href="#silencio">Silêncio</a>
+        <a href="#temas">Temas</a>
+        <a href="#diario">Diário</a>
+      </nav>
+    </div>
+    <p class="fine">Texto bíblico na versão Almeida Revista e Corrigida (domínio público). Reflexões e orações escritas para o Verdade Viva. © 2026 Verdade Viva.<br>Idealizado por Wagner Ramos de Oliveira · WhatsApp: <a href="https://wa.me/5574991177000" target="_blank" rel="noopener">(74) 9.9117-7000</a></p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Utilidades ---------- */
+var mem = {};
+var store = {
+  get: function(k, d){ try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch(e){ return (k in mem) ? mem[k] : d; } },
+  set: function(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){ mem[k] = v; } }
+};
+function $(s, r){ return (r || document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function mk(tag, cls, text){ var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+function mod(a, n){ return ((a % n) + n) % n; }
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+var toastTimer;
+function toast(msg){
+  var t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+function copyText(text, msg){
+  function fallback(){
+    var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", "");
+    ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch(e){}
+    document.body.removeChild(ta); toast(ok ? msg : "Não foi possível copiar");
+  }
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function(){ toast(msg); }, fallback);
+    } else fallback();
+  } catch(e){ fallback(); }
+}
+function shareText(v){ return "“" + v.texto + "”\n" + v.ref + "\n\nVerdade Viva"; }
+
+/* ---------- Conteúdo ---------- */
+var V = {
+  sl4610:{ref:"Salmos 46:10",texto:"Aquietai-vos, e sabei que eu sou Deus; serei exaltado entre as nações, serei exaltado sobre a terra."},
+  ex3314:{ref:"Êxodo 33:14",texto:"E disse: Irá a minha presença contigo, e te farei descansar."},
+  sl1611:{ref:"Salmos 16:11",texto:"Far-me-ás ver a vereda da vida; na tua presença há plenitude de alegria, à tua destra há delícias perpetuamente."},
+  jo173:{ref:"João 17:3",texto:"E a vida eterna é esta: que conheçam a ti só, por único Deus verdadeiro, e a Jesus Cristo, a quem enviaste."},
+  os63:{ref:"Oseias 6:3",texto:"Conheçamos, e prossigamos em conhecer ao Senhor."},
+  jr2913:{ref:"Jeremias 29:13",texto:"E buscar-me-eis, e me achareis, quando me buscardes de todo o vosso coração."},
+  jo419:{ref:"1 João 4:19",texto:"Nós o amamos a ele porque ele nos amou primeiro."},
+  rm58:{ref:"Romanos 5:8",texto:"Mas Deus prova o seu amor para conosco em que Cristo morreu por nós, sendo nós ainda pecadores."},
+  jr313:{ref:"Jeremias 31:3",texto:"Com amor eterno te amei; por isso com benignidade te atraí."},
+  jo424:{ref:"João 4:24",texto:"Deus é Espírito, e os que o adoram devem adorá-lo em espírito e em verdade."},
+  sl292:{ref:"Salmos 29:2",texto:"Dai ao Senhor a glória devida ao seu nome; adorai o Senhor na beleza da santidade."},
+  sl956:{ref:"Salmos 95:6",texto:"Vinde, adoremos e prostremo-nos; ajoelhemos diante do Senhor que nos criou."},
+  jo1427:{ref:"João 14:27",texto:"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá. Não se turbe o vosso coração, nem se atemorize."},
+  is263:{ref:"Isaías 26:3",texto:"Tu conservarás em perfeita paz aquele cujo propósito está firme em ti; porque ele confia em ti."},
+  fp47:{ref:"Filipenses 4:7",texto:"E a paz de Deus, que excede todo o entendimento, guardará os vossos corações e os vossos sentimentos em Cristo Jesus."},
+  pe57:{ref:"1 Pedro 5:7",texto:"Lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós."},
+  mt1128:{ref:"Mateus 11:28",texto:"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei."},
+  sl2323:{ref:"Salmos 23:2-3",texto:"Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas. Refrigera a minha alma; guia-me pelas veredas da justiça, por amor do seu nome."},
+  sl191:{ref:"Salmos 19:1",texto:"Os céus declaram a glória de Deus e o firmamento anuncia a obra das suas mãos."},
+  ap411:{ref:"Apocalipse 4:11",texto:"Digno és, Senhor, de receber glória, e honra, e poder; porque tu criaste todas as coisas, e por tua vontade existem e foram criadas."},
+  sl1453:{ref:"Salmos 145:3",texto:"Grande é o Senhor e muito digno de louvor; e a sua grandeza é insondável."},
+  sl421:{ref:"Salmos 42:1",texto:"Assim como o cervo brama pelas correntes das águas, assim suspira a minha alma por ti, ó Deus!"},
+  sl631:{ref:"Salmos 63:1",texto:"Ó Deus, tu és o meu Deus; de madrugada te buscarei; a minha alma tem sede de ti, a minha carne te deseja muito, em terra seca e cansada, onde não há água."},
+  jo414:{ref:"João 4:14",texto:"Mas aquele que beber da água que eu lhe der nunca terá sede, porque a água que eu lhe der se fará nele uma fonte de água que salte para a vida eterna."},
+  jo832:{ref:"João 8:32",texto:"E conhecereis a verdade, e a verdade vos libertará."},
+  jo146:{ref:"João 14:6",texto:"Disse-lhe Jesus: Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai senão por mim."},
+  sl8611:{ref:"Salmos 86:11",texto:"Ensina-me, Senhor, o teu caminho, e andarei na tua verdade; une o meu coração ao temor do teu nome."},
+  lm322:{ref:"Lamentações 3:22-23",texto:"As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim. Novas são cada manhã; grande é a tua fidelidade."},
+  sl1038:{ref:"Salmos 103:8",texto:"Misericordioso e piedoso é o Senhor; longânimo e grande em benignidade."},
+  sl1031:{ref:"Salmos 103:1-2",texto:"Bendize, ó minha alma, ao Senhor, e tudo o que há em mim bendiga o seu santo nome. Bendize, ó minha alma, ao Senhor, e não te esqueças de nenhum de seus benefícios."},
+  pv35:{ref:"Provérbios 3:5-6",texto:"Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento. Reconhece-o em todos os teus caminhos, e ele endireitará as tuas veredas."},
+  is4110:{ref:"Isaías 41:10",texto:"Não temas, porque eu sou contigo; não te assombres, porque eu sou o teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça."},
+  sl1211:{ref:"Salmos 121:1-2",texto:"Levantarei os meus olhos para os montes, de onde vem o meu socorro. O meu socorro vem do Senhor, que fez os céus e a terra."},
+  tg48:{ref:"Tiago 4:8",texto:"Chegai-vos a Deus, e ele se chegará a vós."},
+  hb416:{ref:"Hebreus 4:16",texto:"Cheguemos, pois, com confiança ao trono da graça, para que possamos alcançar misericórdia, e achar graça, a fim de sermos ajudados em tempo oportuno."},
+  sl14518:{ref:"Salmos 145:18",texto:"Perto está o Senhor de todos os que o invocam, de todos os que o invocam em verdade."}
+};
+
+var DEVOS = [
+ {titulo:"Aquietar-se é uma forma de adorar", verso:V.sl4610, apoio:[V.ex3314,V.sl1611],
+  p:["Conhecer alguém exige tempo na presença dessa pessoa. Deus não espera que você resolva tudo antes de se aproximar; ele convida você a parar. O chamado para aquietar-se vem antes de qualquer pedido e de qualquer plano, porque é no silêncio que percebemos que ele já estava ali.",
+     "A promessa feita a Moisés vale para hoje: a presença de Deus vai com você e traz descanso. Antes de abrir as mensagens, reserve alguns minutos para não pedir nada. Apenas fique diante dele. A adoração começa quando deixamos de falar sozinhos."],
+  oracao:"Senhor, aquieta o meu coração. Ensina-me a estar contigo sem pressa e a reconhecer que tu és Deus. Amém."},
+ {titulo:"A vida eterna começa em conhecê-lo", verso:V.jo173, apoio:[V.os63,V.jr2913],
+  p:["Jesus não descreve a vida eterna como um lugar, mas como uma relação: conhecer o Deus verdadeiro. Na Bíblia, conhecer é mais do que reunir informações. É uma intimidade que cresce com o tempo, do mesmo jeito que conhecemos quem convive conosco todos os dias.",
+     "Você não precisa entender toda a teologia para começar. Leia uma passagem e pergunte: o que isto me mostra sobre quem Deus é? Ele promete ser achado por quem o busca de todo o coração, e essa busca já é o próprio caminho."],
+  oracao:"Pai, quero te conhecer de verdade, e não apenas saber sobre ti. Abre os meus olhos quando eu ler a tua Palavra. Amém."},
+ {titulo:"Ele amou primeiro", verso:V.jo419, apoio:[V.rm58,V.jr313],
+  p:["O nosso amor por Deus é sempre uma resposta. Antes de aprendermos a orar, a cantar ou a servir, ele já tinha tomado a iniciativa. Isso tira o peso de tentar merecer a atenção de Deus: você não começa a adoração do zero, você responde a alguém que já veio ao seu encontro.",
+     "Paulo diz que esse amor foi provado quando ainda éramos pecadores, e não depois que nos ajeitamos. Se hoje você sente que está longe demais, lembre-se de que a distância nunca impediu o amor de Deus de chegar até você."],
+  oracao:"Senhor, obrigado por me amares antes que eu soubesse te procurar. Que o meu coração responda com gratidão. Amém."},
+ {titulo:"Adorar em espírito e em verdade", verso:V.jo424, apoio:[V.sl292,V.sl956],
+  p:["Jesus disse isso a uma mulher que queria discutir qual era o lugar certo para adorar. A resposta muda a pergunta: adoração não depende de um endereço, de um estilo de música ou de um horário. Depende de um coração sincero, alinhado com a verdade sobre quem Deus é.",
+     "Isso significa que a cozinha, o ônibus e o local de trabalho podem se tornar altares. Hoje, escolha um momento comum do dia e dedique-o a Deus em silêncio: um agradecimento, uma oração curta, um olhar atento à criação."],
+  oracao:"Deus, ensina-me a te adorar com sinceridade, onde eu estiver. Que a minha vida inteira seja resposta ao teu amor. Amém."},
+ {titulo:"A paz que ele mesmo deixou", verso:V.jo1427, apoio:[V.is263,V.fp47],
+  p:["Jesus falou de paz poucas horas antes de enfrentar a cruz. Não era a paz de quem não tem problemas, e sim a de quem confia no Pai no meio deles. Por isso ela não depende de a semana estar tranquila para existir.",
+     "Isaías liga a paz perfeita a um propósito firme em Deus, e Paulo diz que essa paz guarda o coração e a mente. Quando os pensamentos dispararem, devolva o foco: respire, diga o nome de Deus e lembre-se de que a paz é um dom, não uma conquista."],
+  oracao:"Jesus, recebo a tua paz. Guarda o meu coração e os meus pensamentos hoje. Amém."},
+ {titulo:"Entregar o que pesa", verso:V.pe57, apoio:[V.mt1128,V.sl2323],
+  p:["A Bíblia não pede que você finja não ter ansiedade. Pede que a lance sobre Deus, porque ele cuida de você. Lançar é um gesto ativo: nomear o que pesa, dizer isso a ele com palavras simples e abrir a mão.",
+     "Jesus convida quem está cansado a ir até ele, e o Salmo 23 mostra o resultado: águas tranquilas, alma refrigerada, caminho guiado. Descansar não é abandonar as responsabilidades, é carregá-las ao lado do Pastor."],
+  oracao:"Pai, aqui estão as minhas preocupações. Eu as entrego a ti e descanso no teu cuidado. Amém."},
+ {titulo:"O céu conta o que as palavras não alcançam", verso:V.sl191, apoio:[V.ap411,V.sl1453],
+  p:["Antes de haver uma Bíblia escrita, já havia criação falando de Deus. O nascer do sol, o mar, um céu estrelado: tudo aponta para um Autor maior do que qualquer descrição. Olhar com atenção para o que Deus fez é uma forma simples de começar a adorá-lo.",
+     "Hoje, pare por um minuto diante de algo criado, uma árvore, o céu, uma pessoa, e agradeça por isso. A grandeza de Deus é insondável, mas ele deixou pistas espalhadas por todo lado para quem estiver disposto a ver."],
+  oracao:"Senhor, tu és digno de toda a glória. Abre os meus olhos para ver a tua obra ao meu redor. Amém."},
+ {titulo:"Sede de Deus", verso:V.sl421, apoio:[V.sl631,V.jo414],
+  p:["O salmista compara a alma sedenta a um cervo em busca de água. A imagem é honesta: às vezes a sede espiritual chega em tempos secos, e isso não é sinal de fracasso. É sinal de que fomos feitos para Deus e de que nada menos que ele nos satisfaz.",
+     "Jesus prometeu uma água que se torna fonte dentro de quem a bebe. Você não precisa ir longe para encontrá-la: pode beber hoje, na oração e na leitura, e deixar que a sede vire caminho até ele."],
+  oracao:"Deus, a minha alma tem sede de ti. Enche-me da tua presença e faz de mim uma fonte. Amém."},
+ {titulo:"A verdade que liberta tem nome", verso:V.jo832, apoio:[V.jo146,V.sl8611],
+  p:["A verdade da Bíblia não é apenas uma informação correta; é uma pessoa. Jesus disse que é o caminho, a verdade e a vida. Conhecer a verdade, então, é conhecê-lo, e é essa relação que liberta do medo, da culpa e das mentiras que repetimos a nós mesmos.",
+     "O salmista pede: ensina-me o teu caminho, e andarei na tua verdade. A verdade é para ser caminhada, não só admirada. Que passo simples de obediência você pode dar hoje?"],
+  oracao:"Senhor, ensina-me o teu caminho. Liberta-me de tudo o que é falso e faz-me andar na tua verdade. Amém."},
+ {titulo:"Novas a cada manhã", verso:V.lm322, apoio:[V.sl1038,V.sl1031],
+  p:["Lamentações foi escrito em meio à ruína, e mesmo ali o autor encontra motivo de esperança: a misericórdia de Deus não acabou durante a noite. Cada manhã traz uma provisão nova, do tamanho exato do dia que começa.",
+     "Por isso vale começar o dia agradecendo, antes de olhar a lista de tarefas. Lembrar dos benefícios de Deus, como pede o Salmo 103, treina o coração a enxergar fidelidade onde antes só via correria."],
+  oracao:"Pai, obrigado pela tua fidelidade que se renova. Que eu caminhe neste dia lembrando de todos os teus benefícios. Amém."},
+ {titulo:"Confiar sem entender tudo", verso:V.pv35, apoio:[V.is4110,V.sl1211],
+  p:["Confiar não é ter todas as respostas; é saber em quem se apoiar quando elas faltam. Provérbios coloca lado a lado o coração inteiro e o entendimento limitado: reconhecer a Deus em todos os caminhos é admitir que ele enxerga o que nós não vemos.",
+     "Quando o medo aparecer, lembre-se da promessa de que Deus está com você e o sustenta. O socorro vem do Senhor, que fez os céus e a terra, e quem fez tudo cuida também do seu dia de hoje."],
+  oracao:"Senhor, eu confio em ti mesmo sem entender tudo. Endireita os meus caminhos e sustenta-me. Amém."},
+ {titulo:"Chegue perto, ele vem ao seu encontro", verso:V.tg48, apoio:[V.hb416,V.sl14518],
+  p:["A promessa de Tiago é simples: dê um passo em direção a Deus, e ele se aproxima. Não é preciso uma oração perfeita, palavras bonitas ou uma vida arrumada. Basta o primeiro passo sincero.",
+     "Hebreus fala em chegar com confiança ao trono da graça, e o Salmo 145 diz que o Senhor está perto de todos os que o invocam em verdade. Se hoje você não sabe o que dizer, diga apenas o nome dele."],
+  oracao:"Deus, aproximo-me de ti. Recebe-me como estou e ajuda-me a permanecer perto. Amém."}
+];
+
+var ATTRS = [
+ {nome:"Criador", frase:"Deus é o Criador de tudo", verso:{ref:"Gênesis 1:1",texto:"No princípio criou Deus os céus e a terra."},
+  texto:"Tudo começa com ele. O mundo não é um acaso: existe porque Deus quis, e cada amanhecer lembra que há um Autor por trás da beleza que vemos. Conhecê-lo como Criador é aprender a agradecer pelo que já foi dado."},
+ {nome:"Santo", frase:"Deus é santo", verso:{ref:"Isaías 6:3",texto:"Santo, Santo, Santo é o Senhor dos Exércitos; toda a terra está cheia da sua glória."},
+  texto:"Santo quer dizer separado, incomparável. Não há ninguém como ele. A santidade de Deus não nos afasta: ela mostra o tamanho de quem nos convida a chegar perto, e por isso adoramos com reverência e alegria."},
+ {nome:"Amor", frase:"Deus é amor", verso:{ref:"1 João 4:8",texto:"Aquele que não ama não conhece a Deus, porque Deus é amor."},
+  texto:"O amor não é apenas algo que Deus sente; é quem ele é. Por isso o amor de Deus não oscila com o nosso desempenho, e por isso conhecê-lo transforma o modo como amamos as pessoas."},
+ {nome:"Bom", frase:"Deus é bom", verso:{ref:"Salmos 34:8",texto:"Provai, e vede que o Senhor é bom; bem-aventurado o homem que nele confia."},
+  texto:"O salmista não pede que apenas acreditemos: convida a provar e ver. A bondade de Deus é para ser experimentada no dia a dia, e quem se refugia nele descobre que ele é confiável."},
+ {nome:"Fiel", frase:"Deus é fiel", verso:V.lm322,
+  texto:"Deus cumpre o que promete. A fidelidade dele não depende do nosso humor nem das circunstâncias, e se renova a cada manhã. Adorar o Deus fiel é descansar no fato de que ele não muda."},
+ {nome:"Eterno", frase:"Deus é eterno", verso:{ref:"Salmos 90:2",texto:"Antes que os montes nascessem, e que tu formasses a terra e o mundo, desde a eternidade e para sempre tu és Deus."},
+  texto:"Governos, modas e estações passam. Deus permanece. Saber que ele existe antes e depois de tudo dá perspectiva às nossas pressas e firmeza às nossas esperanças."},
+ {nome:"Misericordioso", frase:"Deus é misericordioso", verso:V.sl1038,
+  texto:"Misericórdia é compaixão em ação. Deus é paciente com a nossa fraqueza e generoso em perdoar. Ele nos acolhe não porque somos perfeitos, mas porque é rico em benignidade."},
+ {nome:"Presente", frase:"Deus está perto", verso:V.sl14518,
+  texto:"Deus não está distante nem ocupado demais. Ele está perto de quem o chama com sinceridade. Isso significa que a oração pode acontecer em qualquer lugar, sem cerimônia."}
+];
+
+var THEMES = [
+ {nome:"Paz", v:[V.jo1427,V.is263,V.fp47]},
+ {nome:"Descanso", v:[V.mt1128,V.sl2323,V.ex3314]},
+ {nome:"Esperança", v:[
+   {ref:"Jeremias 29:11",texto:"Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."},
+   {ref:"Romanos 15:13",texto:"Ora, o Deus de esperança vos encha de todo o gozo e paz no acreditar, para que abundeis em esperança pela virtude do Espírito Santo."},
+   {ref:"Isaías 40:31",texto:"Mas os que esperam no Senhor renovarão as suas forças, subirão com asas como águias; correrão, e não se cansarão; caminharão, e não se fatigarão."}]},
+ {nome:"Força", v:[V.is4110,
+   {ref:"Filipenses 4:13",texto:"Posso todas as coisas em Cristo que me fortalece."},
+   {ref:"Josué 1:9",texto:"Não to mandei eu? Sê forte e corajoso; não temas, nem te espantes, porque o Senhor teu Deus é contigo, por onde quer que andares."}]},
+ {nome:"Gratidão", v:[
+   {ref:"Salmos 100:4",texto:"Entrai pelas suas portas com ação de graças, e em seus átrios com louvor; louvai-o, e bendizei o seu nome."},
+   {ref:"Salmos 103:2",texto:"Bendize, ó minha alma, ao Senhor, e não te esqueças de nenhum de seus benefícios."},
+   {ref:"1 Tessalonicenses 5:18",texto:"Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco."}]},
+ {nome:"Fé", v:[
+   {ref:"Hebreus 11:6",texto:"Ora, sem fé é impossível agradar-lhe; porque é necessário que aquele que se aproxima de Deus creia que ele existe, e que é galardoador dos que o buscam."},
+   {ref:"Provérbios 3:5",texto:"Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento."},
+   {ref:"Romanos 10:17",texto:"De sorte que a fé é pelo ouvir, e o ouvir pela palavra de Deus."}]},
+ {nome:"Amor", v:[
+   {ref:"João 3:16",texto:"Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."},
+   V.rm58,
+   {ref:"1 Coríntios 13:13",texto:"Agora, pois, permanecem a fé, a esperança e o amor, estes três, mas o maior destes é o amor."}]}
+];
+
+var PROMPTS = [
+ "Pelo que você quer agradecer a Deus hoje?",
+ "O que a palavra de hoje mostrou sobre quem Deus é?",
+ "O que você quer entregar a Deus neste momento?",
+ "Onde você percebeu a presença de Deus recentemente?",
+ "Escreva uma oração com as suas próprias palavras.",
+ "Que passo de obediência você pode dar hoje?",
+ "Quem você quer colocar diante de Deus em oração?"
+];
+
+/* ---------- Favoritos ---------- */
+function favs(){ return store.get("vv:favs", []); }
+function isFav(ref){ return favs().some(function(f){ return f.ref === ref; }); }
+function toggleFav(v){
+  var list = favs(), i = -1;
+  list.forEach(function(f, n){ if (f.ref === v.ref) i = n; });
+  if (i >= 0) { list.splice(i, 1); toast("Removido dos guardados"); }
+  else { list.unshift({ref:v.ref, texto:v.texto}); toast("Versículo guardado"); }
+  store.set("vv:favs", list);
+  refreshFavUI();
+}
+function refreshFavUI(){
+  if (current) {
+    var on = isFav(current.verso.ref);
+    var b = $("#favBtn"); b.setAttribute("aria-pressed", on ? "true" : "false");
+    $("#favLabel").textContent = on ? "Guardado" : "Guardar";
+  }
+  $$("[data-fav]").forEach(function(btn){
+    var idx = btn.getAttribute("data-fav").split(":");
+    var v = THEMES[+idx[0]].v[+idx[1]];
+    var on = isFav(v.ref);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.setAttribute("aria-label", (on ? "Remover dos guardados: " : "Guardar: ") + v.ref);
+  });
+  renderFavs();
+}
+
+/* ---------- Palavra do dia ---------- */
+var offset = 0, current = null;
+var MIN_OFF = -30, MAX_OFF = 3;
+function baseDate(off){ var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate() + off); }
+function dayNum(d){ return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000); }
+function relLabel(o){
+  if (o === 0) return "Palavra de hoje";
+  if (o === -1) return "Palavra de ontem";
+  if (o === 1) return "Palavra de amanhã";
+  return o < 0 ? "Palavra de " + (-o) + " dias atrás" : "Palavra de daqui a " + o + " dias";
+}
+function quoteHTML(v){ return '<figure class="quote"><blockquote>“' + v.texto + '”</blockquote><figcaption>' + v.ref + '</figcaption></figure>'; }
+
+function renderDay(animate){
+  var d = baseDate(offset), dev = DEVOS[mod(dayNum(d), DEVOS.length)];
+  current = dev;
+  $("#dayRel").textContent = relLabel(offset);
+  var t = $("#dayDate");
+  t.textContent = cap(d.toLocaleDateString("pt-BR", {weekday:"long", day:"numeric", month:"long", year:"numeric"}));
+  t.setAttribute("datetime", d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"));
+  $("#dayTitle").textContent = dev.titulo;
+  $("#verseText").textContent = "“" + dev.verso.texto + "”";
+  $("#verseRef").textContent = dev.verso.ref;
+  $("#reflBody").innerHTML = "<p>" + dev.p[0] + "</p>" + quoteHTML(dev.apoio[0]) + "<p>" + dev.p[1] + "</p>" + quoteHTML(dev.apoio[1]);
+  $("#prayerText").textContent = dev.oracao;
+  $("#waBtn").href = "https://wa.me/?text=" + encodeURIComponent(shareText(dev.verso));
+  $("#prevDay").disabled = offset <= MIN_OFF;
+  $("#nextDay").disabled = offset >= MAX_OFF;
+  $("#todayBtn").hidden = offset === 0;
+  refreshFavUI();
+  if (animate && !reduce) {
+    ["#heroInner", "#reflection"].forEach(function(s){
+      var el = $(s); el.classList.remove("fresh"); void el.offsetWidth; el.classList.add("fresh");
+    });
+  }
+}
+$("#prevDay").addEventListener("click", function(){ if (offset > MIN_OFF) { offset--; renderDay(true); } });
+$("#nextDay").addEventListener("click", function(){ if (offset < MAX_OFF) { offset++; renderDay(true); } });
+$("#todayBtn").addEventListener("click", function(){ offset = 0; renderDay(true); });
+$("#favBtn").addEventListener("click", function(){ toggleFav(current.verso); });
+$("#copyBtn").addEventListener("click", function(){ copyText(shareText(current.verso), "Versículo copiado"); });
+
+/* ---------- Lago: ondas ao toque ---------- */
+var lake = $("#lake"), hint = $("#lakeHint");
+function ripple(x, y){
+  if (reduce) return;
+  for (var i = 0; i < 2; i++) {
+    var r = document.createElement("span");
+    r.className = "ripple"; r.style.left = x + "px"; r.style.top = y + "px"; r.style.animationDelay = (i * 0.5) + "s";
+    r.addEventListener("animationend", function(){ if (this.parentNode) this.parentNode.removeChild(this); });
+    lake.appendChild(r);
+  }
+}
+lake.addEventListener("pointerdown", function(e){
+  var b = lake.getBoundingClientRect();
+  ripple(e.clientX - b.left, e.clientY - b.top);
+  hint.classList.add("gone");
+});
+setTimeout(function(){ var b = lake.getBoundingClientRect(); ripple(b.width * 0.7, b.height * 0.4); }, 1100);
+
+/* ---------- Conhecer a Deus ---------- */
+var attrList = $("#attrList"), attrPanel = $("#attrPanel"), attrIdx = 0;
+ATTRS.forEach(function(a, i){
+  var b = mk("button", "", a.nome);
+  b.type = "button"; b.setAttribute("role", "tab"); b.id = "attr-" + i;
+  b.setAttribute("aria-controls", "attrPanel");
+  b.addEventListener("click", function(){ selectAttr(i, true); });
+  b.addEventListener("keydown", function(e){
+    var k = e.key, n = ATTRS.length, to = null;
+    if (k === "ArrowDown" || k === "ArrowRight") to = (i + 1) % n;
+    else if (k === "ArrowUp" || k === "ArrowLeft") to = (i - 1 + n) % n;
+    if (to !== null) { e.preventDefault(); selectAttr(to, true); $("#attr-" + to).focus(); }
+  });
+  attrList.appendChild(b);
+});
+function selectAttr(i, animate){
+  attrIdx = i; var a = ATTRS[i];
+  $$("#attrList button").forEach(function(b, n){
+    b.setAttribute("aria-selected", n === i ? "true" : "false");
+    b.tabIndex = n === i ? 0 : -1;
+  });
+  attrPanel.setAttribute("aria-labelledby", "attr-" + i);
+  attrPanel.innerHTML = "";
+  attrPanel.appendChild(mk("h3", "", a.frase));
+  var fig = mk("figure", "quote"); fig.appendChild(mk("blockquote", "", "“" + a.verso.texto + "”")); fig.appendChild(mk("figcaption", "", a.verso.ref));
+  attrPanel.appendChild(fig);
+  attrPanel.appendChild(mk("p", "", a.texto));
+  var nx = ATTRS[(i + 1) % ATTRS.length];
+  var btn = mk("button", "btn btn-line", "Conhecer: " + nx.nome); btn.type = "button";
+  btn.addEventListener("click", function(){ selectAttr((i + 1) % ATTRS.length, true); });
+  attrPanel.appendChild(btn);
+  if (animate && !reduce) { attrPanel.classList.remove("fresh"); void attrPanel.offsetWidth; attrPanel.classList.add("fresh"); }
+}
+selectAttr(0, false);
+
+/* ---------- Silêncio ---------- */
+var breath = $("#breath"), bLabel = $("#bLabel"), bPhrase = $("#bPhrase"), timerEl = $("#timer"), silBtn = $("#silBtn");
+var sil = {min:3, total:0, left:0, id:null, running:false};
+function fmt(s){ var m = Math.floor(s / 60), r = s % 60; return String(m).padStart(2,"0") + ":" + String(r).padStart(2,"0"); }
+function setPhase(p){
+  breath.setAttribute("data-phase", p);
+  if (p === "in") { bLabel.textContent = "Inspire"; bPhrase.textContent = "Aquietai-vos"; }
+  else if (p === "out") { bLabel.textContent = "Expire"; bPhrase.textContent = "e sabei que eu sou Deus"; }
+}
+function setSegDisabled(d){ $$(".seg button").forEach(function(b){ b.disabled = d; }); }
+function stopSil(finished){
+  clearInterval(sil.id); sil.running = false;
+  breath.classList.remove("running"); breath.setAttribute("data-phase", "idle");
+  silBtn.textContent = "Iniciar"; setSegDisabled(false);
+  if (finished) { bLabel.textContent = "Amém"; bPhrase.textContent = "Leve esta paz com você"; timerEl.textContent = "00:00"; toast("Momento de silêncio concluído"); }
+  else { bLabel.textContent = "Pronto para começar"; bPhrase.textContent = "Aquietai-vos"; timerEl.textContent = fmt(sil.min * 60); }
+}
+function startSil(){
+  sil.running = true; sil.total = sil.min * 60; sil.left = sil.total;
+  silBtn.textContent = "Encerrar"; setSegDisabled(true); breath.classList.add("running");
+  timerEl.textContent = fmt(sil.left);
+  setPhase("in");
+  sil.id = setInterval(function(){
+    sil.left--; var el = sil.total - sil.left;
+    timerEl.textContent = fmt(sil.left);
+    if (sil.left <= 0) { stopSil(true); return; }
+    setPhase(Math.floor(el / 4) % 2 === 0 ? "in" : "out");
+  }, 1000);
+}
+silBtn.addEventListener("click", function(){ if (sil.running) stopSil(false); else startSil(); });
+$$(".seg button").forEach(function(b){
+  b.addEventListener("click", function(){
+    sil.min = +b.getAttribute("data-min");
+    $$(".seg button").forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    timerEl.textContent = fmt(sil.min * 60);
+  });
+});
+
+/* ---------- Temas ---------- */
+var chipsEl = $("#chips"), rowsEl = $("#verseRows"), themeIdx = 0;
+THEMES.forEach(function(t, i){
+  var c = mk("button", "chip", t.nome); c.type = "button";
+  c.addEventListener("click", function(){ selectTheme(i, true); });
+  chipsEl.appendChild(c);
+});
+function selectTheme(i, animate){
+  themeIdx = i;
+  $$("#chips .chip").forEach(function(c, n){ c.setAttribute("aria-pressed", n === i ? "true" : "false"); });
+  rowsEl.innerHTML = "";
+  THEMES[i].v.forEach(function(v, n){
+    var row = mk("div", "vrow"), left = mk("div");
+    left.appendChild(mk("blockquote", "", "“" + v.texto + "”"));
+    left.appendChild(mk("cite", "", v.ref));
+    var tools = mk("div", "tools");
+    var cp = mk("button", "icon-btn sm"); cp.type = "button"; cp.setAttribute("aria-label", "Copiar: " + v.ref);
+    cp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
+    cp.addEventListener("click", function(){ copyText(shareText(v), "Versículo copiado"); });
+    var fv = mk("button", "icon-btn sm"); fv.type = "button"; fv.setAttribute("data-fav", i + ":" + n);
+    fv.innerHTML = '<svg class="heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+    fv.addEventListener("click", function(){ toggleFav(v); });
+    tools.appendChild(cp); tools.appendChild(fv);
+    row.appendChild(left); row.appendChild(tools); rowsEl.appendChild(row);
+  });
+  refreshFavUI();
+  if (animate && !reduce) { rowsEl.classList.remove("fresh"); void rowsEl.offsetWidth; rowsEl.classList.add("fresh"); }
+}
+
+/* ---------- Diário ---------- */
+function notes(){ return store.get("vv:notes", []); }
+function renderNotes(){
+  var box = $("#listNotes"); box.innerHTML = "";
+  var list = notes();
+  if (!list.length) { box.appendChild(mk("p", "empty", "Nenhuma anotação ainda. Escreva a primeira ao lado.")); return; }
+  list.forEach(function(n){
+    var e = mk("div", "entry");
+    var d = new Date(n.iso);
+    var tm = mk("time", "", cap(d.toLocaleDateString("pt-BR", {weekday:"long", day:"numeric", month:"long"})));
+    tm.setAttribute("datetime", n.iso);
+    e.appendChild(tm); e.appendChild(mk("p", "", n.text));
+    var tools = mk("div", "e-tools");
+    var rm = mk("button", "link-btn", "Remover"); rm.type = "button";
+    rm.addEventListener("click", function(){
+      store.set("vv:notes", notes().filter(function(x){ return x.id !== n.id; }));
+      renderNotes(); toast("Anotação removida");
+    });
+    tools.appendChild(rm); e.appendChild(tools); box.appendChild(e);
+  });
+}
+function renderFavs(){
+  var box = $("#listFavs"); box.innerHTML = "";
+  var list = favs();
+  if (!list.length) { box.appendChild(mk("p", "empty", "Nenhum versículo guardado. Toque em “Guardar” em qualquer versículo.")); return; }
+  list.forEach(function(v){
+    var e = mk("div", "entry");
+    e.appendChild(mk("time", "", v.ref));
+    e.appendChild(mk("blockquote", "", "“" + v.texto + "”"));
+    var tools = mk("div", "e-tools");
+    var cp = mk("button", "link-btn", "Copiar"); cp.type = "button";
+    cp.addEventListener("click", function(){ copyText(shareText(v), "Versículo copiado"); });
+    var rm = mk("button", "link-btn", "Remover"); rm.type = "button";
+    rm.addEventListener("click", function(){ toggleFav(v); });
+    tools.appendChild(cp); tools.appendChild(rm); e.appendChild(tools); box.appendChild(e);
+  });
+}
+$("#jPrompt").textContent = PROMPTS[mod(dayNum(baseDate(0)), PROMPTS.length)];
+$("#jSave").addEventListener("click", function(){
+  var ta = $("#jText"), txt = ta.value.trim();
+  if (!txt) { toast("Escreva algo antes de salvar"); ta.focus(); return; }
+  var list = notes(); list.unshift({id: Date.now(), iso: new Date().toISOString(), text: txt});
+  store.set("vv:notes", list); ta.value = ""; renderNotes(); toast("Anotação salva");
+  showTab("notes");
+});
+function showTab(which){
+  var n = which === "notes";
+  $("#tabNotes").setAttribute("aria-selected", n ? "true" : "false");
+  $("#tabFavs").setAttribute("aria-selected", n ? "false" : "true");
+  $("#listNotes").hidden = !n; $("#listFavs").hidden = n;
+}
+$("#tabNotes").addEventListener("click", function(){ showTab("notes"); });
+$("#tabFavs").addEventListener("click", function(){ showTab("favs"); });
+
+/* ---------- Tema claro/escuro ---------- */
+var root = document.documentElement;
+var savedTheme = store.get("vv:theme", null);
+if (savedTheme) root.setAttribute("data-theme", savedTheme);
+$("#themeBtn").addEventListener("click", function(){
+  var attr = root.getAttribute("data-theme");
+  var sysDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var eff = attr || (sysDark ? "dark" : "light");
+  var next = eff === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next); store.set("vv:theme", next);
+});
+
+/* ---------- Navegação: seção ativa ---------- */
+var secs = [["hoje", $("#hoje")], ["conhecer", $("#conhecer")], ["adorar", $("#adorar")], ["silencio", $("#silencio")], ["temas", $("#temas")], ["diario", $("#diario")]];
+if ("IntersectionObserver" in window) {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var id = en.target.getAttribute("data-key");
+      $$("#nav a").forEach(function(a){ a.setAttribute("aria-current", a.getAttribute("data-s") === id ? "true" : "false"); });
+    });
+  }, {rootMargin: "-40% 0px -55% 0px"});
+  secs.forEach(function(s){ s[1].setAttribute("data-key", s[0]); io.observe(s[1]); });
+}
+
+/* ---------- Início ---------- */
+selectTheme(0, false);
+renderNotes();
+renderDay(false);
+showTab("notes");
+})();
+</script>
+</body>
+</html>
