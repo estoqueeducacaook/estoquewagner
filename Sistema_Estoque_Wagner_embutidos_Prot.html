@@ -1458,6 +1458,18 @@ mark {
               <option value="sem">Sem Saídas</option>
             </select>
           </div>
+          <div class="campo">
+            <label>Outros</label>
+            <select id="filtOutros"><option value="">Todos</option></select>
+          </div>
+          <div class="campo">
+            <label>Nº Ofício ou Tombo</label>
+            <input type="text" id="filtNumero" placeholder="Digite o número...">
+          </div>
+          <div class="campo">
+            <label>Obs</label>
+            <select id="filtObs"><option value="">Todas</option></select>
+          </div>
           <div class="filtros-actions">
             <button class="btn-secondary" onclick="limparFiltros()">✕ Limpar</button>
           </div>
@@ -9262,6 +9274,9 @@ OFÍCIO OU TOMBO";OBS;MÉDIA;SITUAÇÃO
     var emprestimoSel = document.getElementById('filtEmprestimo').value;
     var dataSel = document.getElementById('filtData').value;
     var saldoSel = document.getElementById('filtSaldo').value;
+    var outrosSel = document.getElementById('filtOutros').value;
+    var numeroBusca = (document.getElementById('filtNumero').value || '').toLowerCase().trim();
+    var obsSel = document.getElementById('filtObs').value;
 
     filteredData = allData.filter(function(row){
       if (busca && (row[COLS.produto] || '').toLowerCase().indexOf(busca) === -1) return false;
@@ -9270,6 +9285,9 @@ OFÍCIO OU TOMBO";OBS;MÉDIA;SITUAÇÃO
       if (sec && row[COLS.sec] !== sec) return false;
       if (escola && row[COLS.escola] !== escola) return false;
       if (dataSel && row[COLS.data] !== dataSel) return false;
+      if (outrosSel && (row[COLS.saldo] || '').toString().trim() !== outrosSel) return false;
+      if (numeroBusca && (row[COLS.numero] || '').toString().toLowerCase().indexOf(numeroBusca) === -1) return false;
+      if (obsSel && (row[COLS.previsao] || '').toString().trim() !== obsSel) return false;
 
       var empVal = (row[COLS.emprestimo] || '').toString().trim();
       if (emprestimoSel) {
@@ -9314,6 +9332,76 @@ OFÍCIO OU TOMBO";OBS;MÉDIA;SITUAÇÃO
     if (typeof originalPopulateFiltros === 'function') originalPopulateFiltros();
     populateEmprestimoFiltro();
   };
+
+  // ================= FILTROS: OUTROS, Nº OFÍCIO/TOMBO E OBS =================
+  function populateSelectByCol(id, colIdx, textoTodos){
+    var sel = document.getElementById(id);
+    if (!sel || typeof allData === 'undefined' || !Array.isArray(allData)) return;
+    var current = sel.value, set = {}, vals = [];
+    for (var i = 0; i < allData.length; i++) {
+      var v = (allData[i][colIdx] || '').toString().trim();
+      if (v && !set[v]) { set[v] = true; vals.push(v); }
+    }
+    vals.sort(function(a,b){ return a.localeCompare(b, 'pt-BR', { numeric: true }); });
+    var html = '<option value="">' + textoTodos + '</option>';
+    for (var j = 0; j < vals.length; j++) html += '<option value="' + esc(vals[j]) + '">' + esc(vals[j]) + '</option>';
+    sel.innerHTML = html;
+    if (set[current]) sel.value = current;
+  }
+
+  function populateNovosFiltros(){
+    populateSelectByCol('filtOutros', COLS.saldo, 'Todos');
+    populateSelectByCol('filtObs', COLS.previsao, 'Todas');
+  }
+
+  var ALL_FILTER_IDS = ['filtBusca','filtGrupo','filtSituacao','filtSec','filtEscola','filtEmprestimo','filtData','filtSaldo','filtOutros','filtNumero','filtObs'];
+  var FILTER_LABELS = {
+    filtBusca:'Produto', filtGrupo:'Grupo', filtSituacao:'Situação', filtSec:'SEC', filtEscola:'Escola',
+    filtEmprestimo:'Empréstimo', filtData:'Data', filtSaldo:'Saídas',
+    filtOutros:'Outros', filtNumero:'Nº Ofício/Tombo', filtObs:'Obs'
+  };
+
+  window.limparFiltros = function(){
+    ALL_FILTER_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (el.tagName === 'INPUT') el.value = ''; else el.selectedIndex = 0;
+    });
+    currentPage = 1;
+    aplicarFiltros();
+    renderActiveFilters();
+  };
+
+  window.renderActiveFilters = function(){
+    var bar = document.getElementById('activeFiltersBar');
+    if (!bar) return;
+    var html = '';
+    ALL_FILTER_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if (!el || !el.value) return;
+      var txt = el.tagName === 'INPUT' ? el.value : el.options[el.selectedIndex].text;
+      html += '<span class="filter-chip">' + esc(FILTER_LABELS[id]) + ': ' + esc(txt) +
+              ' <span class="remove" onclick="clearFilter(\'' + id + '\')">✕</span></span>';
+    });
+    bar.innerHTML = html;
+  };
+
+  ['filtOutros','filtNumero','filtObs'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', function(){
+      currentPage = 1;
+      aplicarFiltros();
+      renderActiveFilters();
+    });
+  });
+
+  var _popEmpPrev = window.populateFiltros;
+  window.populateFiltros = function(){
+    _popEmpPrev();
+    populateNovosFiltros();
+  };
+  populateNovosFiltros();
 
   // Popula assim que este script carrega (dados embutidos já foram lidos)
   populateEmprestimoFiltro();
