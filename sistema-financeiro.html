@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ConectaCrédito | Compare propostas financeiras</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--tx:#14213d;--mut:#5b6b85;--pri:#0a7c66;--pri2:#065f4e;--bd:#dde4ee;--acc:#f4b942;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1524;--card:#17223a;--tx:#eaf0fb;--mut:#9fb0cc;--pri:#2fc9a6;--pri2:#1fa88a;--bd:#2a3a5c}}
+:root[data-theme="dark"]{--bg:#0e1524;--card:#17223a;--tx:#eaf0fb;--mut:#9fb0cc;--pri:#2fc9a6;--pri2:#1fa88a;--bd:#2a3a5c}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1040px;margin:0 auto;padding:0 18px}
+header{background:var(--card);border-bottom:1px solid var(--bd);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+header .w{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font-weight:800;font-size:20px;color:var(--pri)}
+nav{display:flex;gap:16px;font-size:14px;flex-wrap:wrap}
+nav a{color:var(--mut);text-decoration:none}nav a:hover{color:var(--pri)}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:11px 18px;font:600 15px inherit;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--pri2)}
+.btn.o{background:transparent;color:var(--pri);border:1.5px solid var(--pri)}
+.hero{padding:44px 0 24px}
+.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 12px}
+.hero h1 span{color:var(--pri)}
+.hero p{color:var(--mut);max-width:620px;margin:0 0 20px}
+.grid{display:grid;gap:18px;grid-template-columns:1fr 1.25fr}
+@media(max-width:800px){.grid{grid-template-columns:1fr}nav{display:none}}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{border:1px solid var(--bd);background:transparent;color:var(--tx);border-radius:999px;padding:7px 14px;cursor:pointer;font:inherit;font-size:14px}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+label{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+input[type=range]{padding:0;accent-color:var(--pri)}
+.row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}
+.row b{font-size:20px}
+.off{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:13px 0;border-bottom:1px solid var(--bd)}
+.off:last-child{border:0}
+.off small{color:var(--mut);display:block}
+.off .p{font-size:20px;font-weight:700;text-align:right}
+.tag{background:var(--acc);color:#3a2a00;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;margin-left:6px}
+section{padding:34px 0}
+h2{margin:0 0 16px;font-size:26px}
+.steps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.steps .card b{color:var(--pri);font-size:26px;display:block}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{color:var(--mut);font-weight:600}
+details{border-bottom:1px solid var(--bd);padding:12px 0}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--mut);margin:8px 0 0}
+footer{border-top:1px solid var(--bd);padding:24px 0;color:var(--mut);font-size:13px}
+.ok{color:var(--pri);font-weight:600;margin-top:10px}
+.note{font-size:12px;color:var(--mut);margin-top:10px}
+</style>
+</head>
+<body>
+<header><div class="w"><div class="logo">◆ ConectaCrédito</div>
+<nav><a href="#simular">Simulador</a><a href="#como">Como funciona</a><a href="#cadastro">Cadastro</a><a href="#painel">Painel parceiro</a><a href="#faq">FAQ</a></nav>
+<a class="btn" href="#cadastro">Criar conta</a></div></header>
+
+<main class="w">
+<div class="hero"><h1>Empréstimos, financiamentos, consórcios e seguros <span>em um só lugar</span></h1>
+<p>Plataforma que conecta pessoas, empresas e correspondentes bancários a várias instituições financeiras. Compare propostas e escolha a condição mais vantajosa.</p></div>
+
+<div class="grid" id="simular">
+<div class="card">
+<div class="tabs" id="tabs"></div>
+<label>Perfil</label>
+<select id="perfil"><option>Pessoa Física</option><option>Empresa (PJ)</option></select>
+<div class="row" style="margin-top:12px"><span>Valor</span><b id="vv"></b></div>
+<input type="range" id="valor">
+<div class="row" style="margin-top:12px"><span>Prazo</span><b id="pv"></b></div>
+<input type="range" id="prazo">
+<p class="note">Simulação ilustrativa com instituições e taxas fictícias. Condições reais dependem da análise de crédito de cada instituição.</p>
+</div>
+<div class="card"><div class="row"><b style="font-size:17px">Propostas encontradas</b><span id="cnt"></span></div><div id="ofertas"></div></div>
+</div>
+
+<section id="como"><h2>Como funciona</h2>
+<div class="steps">
+<div class="card"><b>1</b>Você simula e compara propostas de várias instituições.</div>
+<div class="card"><b>2</b>Faz o pré-cadastro. Um correspondente bancário entra em contato.</div>
+<div class="card"><b>3</b>Análise, formalização e liberação do recurso, com acompanhamento.</div>
+<div class="card"><b>4</b>Empresas e correspondentes acessam o painel para gerir suas propostas.</div>
+</div></section>
+
+<section id="cadastro"><h2>Pré-cadastro</h2>
+<div class="card" style="max-width:560px">
+<label>Eu sou</label>
+<select id="tipo"><option>Cliente (Pessoa Física)</option><option>Empresa</option><option>Correspondente bancário (parceiro)</option></select>
+<label>Nome</label><input id="nome" autocomplete="name">
+<label>E-mail</label><input id="email" type="email" autocomplete="email">
+<label>WhatsApp</label><input id="fone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+<label>Interesse</label><input id="int" readonly>
+<div style="margin-top:16px"><button class="btn" id="enviar">Enviar pré-cadastro</button></div>
+<div class="ok" id="msg"></div>
+</div></section>
+
+<section id="painel"><h2>Painel do parceiro</h2>
+<div class="card"><p class="note" style="margin:0 0 10px">Os pré-cadastros ficam salvos neste navegador. Em produção, seriam enviados a um servidor.</p>
+<div class="tbl"><table><thead><tr><th>Data</th><th>Nome</th><th>Perfil</th><th>Interesse</th><th>Status</th></tr></thead><tbody id="leads"></tbody></table></div>
+<div style="margin-top:12px"><button class="btn o" id="limpar">Limpar cadastros</button></div></div></section>
+
+<section id="faq"><h2>Dúvidas frequentes</h2>
+<details><summary>A plataforma é um banco?</summary><p>Não. Atuamos como elo tecnológico entre clientes, correspondentes e instituições financeiras. Não concedemos crédito com recursos próprios.</p></details>
+<details><summary>Como funciona a intermediação?</summary><p>De um lado, a originação (correspondentes e promotoras). Do outro, a liquidação (financeiras que analisam e liberam a operação).</p></details>
+<details><summary>Quem pode ser parceiro?</summary><p>Correspondentes bancários autorizados pelo Banco Central que queiram ampliar o acesso a novas instituições.</p></details>
+<details><summary>Os valores da simulação são reais?</summary><p>Não, este é um protótipo com dados fictícios. A aprovação segue a política de cada instituição.</p></details>
+</section>
+</main>
+
+<footer><div class="w">© 2026 ConectaCrédito, protótipo demonstrativo. Não somos instituição financeira. Antes de contratar, você recebe todas as condições de forma clara e transparente.</div></footer>
+
+<script>
+const P={
+emp:{n:"Empréstimos",min:1000,max:100000,st:500,v:15000,pmin:6,pmax:84,p:36,mode:"price",o:[["Banco Aurora",1.49,"Aprovação em até 24h"],["Financeira Horizonte",1.72,"Sem tarifa de cadastro"],["Crédito Solar",1.95,"Parcelas flexíveis"],["FIDC Nova Rota",2.3,"Análise facilitada"]]},
+fin:{n:"Financiamentos",min:20000,max:500000,st:5000,v:80000,pmin:12,pmax:420,p:48,mode:"price",o:[["Banco Aurora",0.99,"Veículos e imóveis"],["Financeira Horizonte",1.09,"Entrada reduzida"],["Crédito Solar",1.19,"Carência de 60 dias"],["Banco Meridian",1.29,"Aprovação digital"]]},
+con:{n:"Consórcios",min:10000,max:400000,st:5000,v:60000,pmin:24,pmax:180,p:80,mode:"adm",o:[["Consórcio Prisma",16,"Taxa de adm. total"],["Consórcio Vértice",18,"Lance embutido"],["Consórcio Litoral",19.5,"Sorteio mensal"],["Consórcio Alfa",21,"Seguro incluso"]]},
+seg:{n:"Seguros",min:5000,max:300000,st:1000,v:40000,pmin:12,pmax:12,p:12,mode:"seg",o:[["Seguradora Escudo",0.32,"Cobertura ampla"],["Seguradora Prime",0.38,"Assistência 24h"],["Seguradora Nativa",0.44,"Franquia reduzida"],["Seguradora Zênite",0.5,"Cobertura premium"]]}};
+const $=i=>document.getElementById(i);
+const R=n=>n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+let cur="emp",pick="";
+function calc(k,x){const v=+$("valor").value,n=+$("prazo").value,pj=$("perfil").selectedIndex===1;let t=x[1]+(pj?0.15:0),par,tot;
+if(P[k].mode==="price"){const i=t/100;par=v*i/(1-Math.pow(1+i,-n));tot=par*n}
+else if(P[k].mode==="adm"){tot=v*(1+t/100);par=tot/n}
+else{par=v*t/100/ (12/12) /1;par=v*(t/100)/12*1;tot=par*12}
+return{par,tot,t}}
+function tabs(){$("tabs").innerHTML="";for(const k in P){const b=document.createElement("button");b.textContent=P[k].n;b.className=k===cur?"on":"";b.onclick=()=>{cur=k;setup()};$("tabs").appendChild(b)}}
+function setup(){const c=P[cur];const v=$("valor"),p=$("prazo");v.min=c.min;v.max=c.max;v.step=c.st;v.value=c.v;p.min=c.pmin;p.max=c.pmax;p.step=1;p.value=c.p;p.disabled=c.pmin===c.pmax;tabs();render()}
+function render(){const c=P[cur],n=+$("prazo").value;$("vv").textContent=R(+$("valor").value);$("pv").textContent=c.mode==="seg"?"12 meses":n+" meses";
+const L=c.o.map(x=>({x,r:calc(cur,x)})).sort((a,b)=>a.r.tot-b.r.tot);$("cnt").textContent=L.length+" ofertas";
+const box=$("ofertas");box.innerHTML="";
+L.forEach((e,i)=>{const d=document.createElement("div");d.className="off";
+const l=document.createElement("div");const s=document.createElement("b");s.textContent=e.x[0];if(!i){const g=document.createElement("span");g.className="tag";g.textContent="MELHOR";s.appendChild(g)}
+const m=document.createElement("small");const tl=c.mode==="adm"?e.r.t.toFixed(1)+"% adm. total":c.mode==="seg"?e.r.t.toFixed(2)+"% ao ano":e.r.t.toFixed(2)+"% a.m.";
+m.textContent=tl+" · "+e.x[2]+" · Total "+R(e.r.tot);l.append(s,m);
+const r=document.createElement("div");const pp=document.createElement("div");pp.className="p";pp.textContent=R(e.r.par)+"/mês";
+const bt=document.createElement("button");bt.className="btn o";bt.style.cssText="padding:6px 12px;font-size:13px;margin-top:4px";bt.textContent="Solicitar";
+bt.onclick=()=>{pick=c.n+" · "+e.x[0]+" · "+R(+$("valor").value);$("int").value=pick;location.hash="cadastro"};
+r.append(pp,bt);d.append(l,r);box.appendChild(d)})}
+["valor","prazo","perfil"].forEach(i=>$(i).addEventListener("input",render));
+function load(){try{return JSON.parse(localStorage.getItem("cc_leads")||"[]")}catch(e){return[]}}
+function save(a){try{localStorage.setItem("cc_leads",JSON.stringify(a))}catch(e){}}
+let mem=load();
+function leads(){const tb=$("leads");tb.innerHTML="";if(!mem.length){const r=tb.insertRow();const c=r.insertCell();c.colSpan=5;c.textContent="Nenhum pré-cadastro ainda.";return}
+mem.slice().reverse().forEach((l,ri)=>{const r=tb.insertRow();[l.d,l.n,l.t,l.i||"Geral"].forEach(v=>{r.insertCell().textContent=v});
+const c=r.insertCell(),s=document.createElement("select");["Novo","Em análise","Aprovado","Recusado"].forEach(o=>s.add(new Option(o)));s.value=l.s;
+s.onchange=()=>{mem[mem.length-1-ri].s=s.value;save(mem)};c.appendChild(s)})}
+$("enviar").onclick=()=>{const n=$("nome").value.trim(),e=$("email").value.trim(),f=$("fone").value.trim();
+if(!n||!/^\S+@\S+\.\S+$/.test(e)||f.replace(/\D/g,"").length<10){$("msg").textContent="Preencha nome, e-mail válido e WhatsApp com DDD.";return}
+mem.push({d:new Date().toLocaleDateString("pt-BR"),n:n,t:$("tipo").value,i:$("int").value,s:"Novo"});save(mem);leads();
+$("msg").textContent="Pré-cadastro enviado! Entraremos em contato em breve.";["nome","email","fone"].forEach(i=>$(i).value="")};
+$("limpar").onclick=()=>{mem=[];save(mem);leads()};
+setup();leads();
+</script>
+</body>
+</html>
