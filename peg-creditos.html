@@ -148,6 +148,13 @@ footer .brand b{color:#fff}footer .lg{font-size:12px;border-top:1px solid #25427
 <div><h4>Contato</h4><a href="#">contato@pegcreditos.com.br</a><a href="#cadastro">Criar conta</a></div>
 </div><div class="lg">© 2026 PEG CRÉDITOS. Todos os direitos reservados. A PEG CRÉDITOS não é instituição financeira e não concede crédito com recursos próprios. Atua como plataforma de tecnologia que integra as etapas da jornada de crédito em parceria com instituições financeiras. A análise e a aprovação seguem a política da instituição escolhida. Antes da contratação, você recebe todas as condições de forma clara e transparente.</div></div></footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabase = window.supabase.createClient(
+    'https://hvyjrorvfzspvcelvgtd.supabase.co/rest/v1/',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2eWpyb3J2ZnpzcHZjZWx2Z3RkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExMzk5NzMsImV4cCI6MjEwNjcxNTk3M30.5MPvleVY8Z0q0qFyoVtnPeC3M181RErtcjDyzN3JVm4'
+  );
+</script>
 <script>
 const P={
 emp:{n:"Empréstimos",min:1000,max:100000,st:500,v:15000,pmin:6,pmax:84,p:36,mode:"price",o:[["Banco Aurora",1.49,"Aprovação em até 24h"],["Financeira Horizonte",1.72,"Sem tarifa de cadastro"],["Crédito Solar",1.95,"Parcelas flexíveis"],["FIDC Nova Rota",2.3,"Análise facilitada"]]},
