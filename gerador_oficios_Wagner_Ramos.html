@@ -122,6 +122,10 @@ function addRow(q,u,d){
 }
 $('mb').addEventListener('input',atualizar);
 $('addm').onclick=()=>{addRow();atualizar();const i=document.querySelectorAll('#mb tr:last-child input')[0];if(i)i.focus()};
+function flexCargo(m){const w=$('carg').value.split(' ');let x=w[0]||'';
+  x=m?x.replace(/ora$/,'or').replace(/ária$/,'ário').replace(/eira$/,'eiro'):x.replace(/or$/,'ora').replace(/ário$/,'ária').replace(/eiro$/,'eira');
+  w[0]=x;$('carg').value=w.join(' ')}
+$('sd').addEventListener('change',()=>{flexCargo($('sd').value==='o');atualizar()});
 addRow('02','sacos','Cimento');
 atualizar();
 $('go').onclick=async()=>{
