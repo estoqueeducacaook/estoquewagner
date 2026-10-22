@@ -42,6 +42,12 @@ table.m th{background:#e7e6e6}table.m td:last-child,table.m th:last-child{text-a
 .rec{display:grid;grid-template-columns:2fr 1fr;border:1px solid #000;margin-top:1.2em;font-size:9.5pt;font-weight:700}
 .rec div{padding:6px 8px;min-height:56px}.rec div+div{border-left:1px solid #000}
 .aviso{font-size:.8rem;color:var(--mu);margin-top:8px}
+.me{width:100%;border-collapse:collapse;table-layout:fixed}
+.me th{font-size:.72rem;color:var(--mu);background:var(--bg);border:1px solid var(--bd);padding:4px 2px}
+.me td{border:1px solid var(--bd);padding:0}
+.me td.n{text-align:center;font-size:.85rem}
+.me input{border:0;border-radius:0;padding:7px 5px;background:var(--card);min-width:0}
+.me button{border:0;background:none;color:#d64545;padding:4px;font-weight:700}
 @media print{body{background:#fff}header.top,.form,.bar,.aviso{display:none}main{display:block;padding:0}.card{border:0;padding:0}.paper{border:0}}
 </style>
 </head>
@@ -58,7 +64,7 @@ table.m th{background:#e7e6e6}table.m td:last-child,table.m th:last-child{text-a
 <label for="resp">Responsável (opcional)</label><input id="resp" value="Regivanio (Braguinha)" placeholder="Ex.: Regivanio (Braguinha)">
 <label for="dst">Destino (opcional)</label><input id="dst" value="Sítio da Umburana" placeholder="Ex.: Sítio da Umburana">
 <label for="res">O que você precisa? (resumo)</label><textarea id="res" placeholder="Descreva o que você precisa">Solicitar a liberação dos materiais, conforme demanda encaminhada à Secretaria de Educação e Esporte/Setor Administrativo, para atender às necessidades das Escolas Municipais.</textarea>
-<label for="mat">Materiais (um por linha: qtd unidade descrição)</label><textarea id="mat" style="min-height:64px" placeholder="02 sacos cimento">02 sacos cimento</textarea>
+<label>Materiais</label><table class="me"><colgroup><col style="width:36px"><col style="width:48px"><col style="width:62px"><col><col style="width:30px"></colgroup><thead><tr><th>Item</th><th>Qtd.</th><th>Unid.</th><th>Descrição</th><th></th></tr></thead><tbody id="mb"></tbody></table><button type="button" id="addm" style="margin-top:6px">+ Adicionar item</button>
 <button class="pri" id="go">✨ Redigir texto</button>
 <div class="msg" id="msg"></div>
 </section>
@@ -101,14 +107,22 @@ function atualizar(){
   $('pa').textContent=$('ass').value||'—';
   $('prw').innerHTML=$('resp').value?'<b>Responsável pela retirada:</b> '+esc($('resp').value):'';
   $('dstw').innerHTML=$('dst').value?'<p><b>Destino:</b> '+esc($('dst').value)+'</p>':'';
-  const ls=$('mat').value.split('\n').map(s=>s.trim()).filter(Boolean);
-  $('tabw').innerHTML=ls.length?'<table class="m"><tr><th>Item</th><th>Qtd.</th><th>Unidade</th><th>Descrição do material</th></tr>'+ls.map((l,i)=>{
-    const m=l.match(/^(\d+)\s+(\S+)\s+(.+)$/);
-    return '<tr><td>'+(i+1)+'</td><td>'+(m?esc(m[1]):'')+'</td><td>'+(m?esc(m[2]):'')+'</td><td>'+esc(m?m[3]:l)+'</td></tr>'}).join('')+'</table>':'';
+  const ls=[...document.querySelectorAll('#mb tr')].map(tr=>[...tr.querySelectorAll('input')].map(i=>i.value.trim())).filter(c=>c.some(Boolean));
+  $('tabw').innerHTML=ls.length?'<table class="m"><tr><th>Item</th><th>Qtd.</th><th>Unidade</th><th>Descrição do material</th></tr>'+ls.map((c,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(c[0])+'</td><td>'+esc(c[1])+'</td><td>'+esc(c[2])+'</td></tr>').join('')+'</table>':'';
   $('fecho').textContent='Cert'+a+' de contar com sua habitual colaboração, renovo votos de elevada estima e consideração.';
   const f=$('sd').value==='a';$('tr').textContent=f?'À Ilma. Sra.':'Ao Ilmo. Sr.';$('voc').textContent=f?'Prezada Senhora,':'Prezado Senhor,';
 }
 document.querySelectorAll('.form input,.form select,.form textarea').forEach(e=>e.addEventListener('input',atualizar));
+function numerar(){[...document.querySelectorAll('#mb tr')].forEach((tr,i)=>tr.querySelector('.n').textContent=i+1)}
+function addRow(q,u,d){
+  const tr=document.createElement('tr');
+  tr.innerHTML='<td class="n"></td><td><input value="'+esc(q||'')+'" aria-label="Quantidade"></td><td><input value="'+esc(u||'')+'" aria-label="Unidade"></td><td><input value="'+esc(d||'')+'" aria-label="Descrição"></td><td><button type="button" title="Remover item">✕</button></td>';
+  tr.querySelector('button').onclick=()=>{tr.remove();numerar();atualizar()};
+  $('mb').appendChild(tr);numerar();
+}
+$('mb').addEventListener('input',atualizar);
+$('addm').onclick=()=>{addRow();atualizar();const i=document.querySelectorAll('#mb tr:last-child input')[0];if(i)i.focus()};
+addRow('02','sacos','Cimento');
 atualizar();
 $('go').onclick=async()=>{
   const res=$('res').value.trim();
