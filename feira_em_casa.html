@@ -88,7 +88,7 @@ let V=[
 ];
 let cart={},cur=null,cat="Todos";
 try{const s=localStorage.getItem("fc_v2");if(s)V=JSON.parse(s)}catch(e){}
-V.forEach(v=>{if(!v.pin)v.pin="1234"});
+V.forEach(v=>{if(!v.pin)v.pin="1234";v.ent=true;v.min=0});
 function save(){try{localStorage.setItem("fc_v2",JSON.stringify(V))}catch(e){}}
 const $=id=>document.getElementById(id), R=n=>"R$ "+n.toFixed(2).replace(".",",");
 function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",n!=i);const t=$("t"+i);if(t)t.classList.toggle("on",n==i)});window.scrollTo(0,0);if(n==2)renderMineSel();if(n==3)renderM()}
@@ -102,7 +102,7 @@ function render(){
  const q=$("q").value.toLowerCase();
  const l=V.filter(v=>(cat=="Todos"||v.c==cat)&&(!q||v.n.toLowerCase().includes(q)||v.p.some(p=>p[0].toLowerCase().includes(q))));
  $("vendors").innerHTML=l.length?l.map(v=>`<div class="card"><div class="row"><div><b>${esc(v.n)}</b><div class="mut">📍 ${esc(v.loc)}</div></div><span class="mut">⭐ ${v.nota}</span></div>
- <div style="margin:8px 0"><span class="tag">${v.c}</span>${v.ent?`<span class="tag">🛵 Entrega ${v.tx?R(v.tx):"grátis"}</span>`:`<span class="tag">Só retirada</span>`}</div>
+ <div style="margin:8px 0"><span class="tag">${v.c}</span><span class="tag">🛵 Entrega ${v.tx?R(v.tx):"grátis"}</span><span class="tag">🏪 Retirada grátis</span></div>
  <div class="mut">${v.p.slice(0,3).map(p=>p[0]+" "+R(p[1])+"/"+p[2]).join(" • ")}</div>
  <button class="btn s" style="margin-top:10px" onclick="openStore(${v.id})">Ver preços e adicionar</button></div>`).join(""):`<p class="mut">Nenhum feirante encontrado.</p>`;
  $("cbar").innerHTML=cartBar()}
@@ -110,7 +110,7 @@ function openStore(id){cur=V.find(v=>v.id==id);$("list").classList.add("hide");$
 function back(){$("store").classList.add("hide");$("checkout").classList.add("hide");$("list").classList.remove("hide");render()}
 function renderStore(){
  const v=cur,c=cart[v.id]||{};
- $("store").innerHTML=`<button class="btn s o" onclick="back()">← Voltar e escolher outras bancas</button><h2 style="margin-top:12px">${esc(v.n)}</h2><div class="mut">📍 ${esc(v.loc)} • ${v.ent?"Entrega "+(v.tx?R(v.tx):"grátis")+" • Pedido mín. "+R(v.min):"Somente retirada"}</div><div style="margin-top:12px">`+
+ $("store").innerHTML=`<button class="btn s o" onclick="back()">← Voltar e escolher outras bancas</button><h2 style="margin-top:12px">${esc(v.n)}</h2><div class="mut">📍 ${esc(v.loc)} • Entrega ${v.tx?R(v.tx):"grátis"} ou retirada na feira</div><div style="margin-top:12px">`+
  v.p.map((p,i)=>`<div class="card row"><div><b>${esc(p[0])}</b><div class="mut">${R(p[1])} / ${p[2]}</div></div><div class="qty"><button onclick="chg(${i},-1)">−</button><span>${c[i]||0}</span><button onclick="chg(${i},1)">+</button></div></div>`).join("")+`</div>`+cartBar()}
 function chg(i,d){const id=cur.id;cart[id]=cart[id]||{};cart[id][i]=Math.max(0,(cart[id][i]||0)+d);if(!cart[id][i])delete cart[id][i];if(!Object.keys(cart[id]).length)delete cart[id];renderStore()}
 function chgc(id,i,d){readForm();cart[id][i]=Math.max(0,(cart[id][i]||0)+d);if(!cart[id][i])delete cart[id][i];if(!Object.keys(cart[id]).length)delete cart[id];if(!Object.keys(cart).length)return back();goCheckout()}
@@ -125,15 +125,12 @@ function goCheckout(){
  if(c.mod)$("cMod").value=c.mod;if(c.pag)$("cPag").value=c.pag;if(c.troco)$("cTroco").value=c.troco;if(c.obs)$("cObs").value=c.obs;
  upd()}
 function upd(){const k=calc();$("ad").classList.toggle("hide",!k.e);
- $("sum").innerHTML=k.rows.map(r=>`<div class="row"><span>${esc(r.v.n)}</span><span>${R(r.s)}</span></div>`).join("")+`<div class="row"><span>Taxas de entrega</span><span>${R(k.tx)}</span></div><div class="row"><b>Total</b><b>${R(k.sub+k.tx)}</b></div>`+
- (k.e?k.rows.filter(r=>!r.v.ent).map(r=>`<div class="mut" style="color:#c62828">${esc(r.v.n)} só faz retirada.</div>`).join("")+k.rows.filter(r=>r.v.ent&&r.s<r.v.min).map(r=>`<div class="mut" style="color:#c62828">${esc(r.v.n)}: pedido mínimo de ${R(r.v.min)} para entrega.</div>`).join(""):"")}
+ $("sum").innerHTML=k.rows.map(r=>`<div class="row"><span>${esc(r.v.n)}</span><span>${R(r.s)}</span></div>`).join("")+`<div class="row"><span>Taxas de entrega</span><span>${R(k.tx)}</span></div><div class="row"><b>Total</b><b>${R(k.sub+k.tx)}</b></div>`}
 function send(){
  readForm();const k=calc();
  if(!cli.n)return alert("Informe seu nome.");
  if(cli.tel.length<10)return alert("Informe seu WhatsApp com DDD.");
- if(k.e){if(!cli.rua||!cli.bai)return alert("Informe rua, número e bairro.");
-  const bad=k.rows.find(r=>!r.v.ent||r.s<r.v.min);
-  if(bad)return alert(bad.v.ent?bad.v.n+": abaixo do pedido mínimo para entrega.":bad.v.n+" só faz retirada. Escolha retirar ou remova essa banca.")}
+ if(k.e){if(!cli.rua||!cli.bai)return alert("Informe rua, número e bairro.");}
  try{localStorage.setItem("fc_cli",JSON.stringify(cli))}catch(x){}
  const addr=k.e?`${cli.rua}, ${cli.bai}${cli.ref?" ("+cli.ref+")":""}`:"";
  const orders=k.rows.map(r=>{
@@ -191,7 +188,7 @@ function renderMine(){
  `<div class="grid2" style="margin-top:10px"><input id="pn" placeholder="Novo produto"><input id="pp" type="number" step="0.5" placeholder="Preço"></div>
  <select id="pu" style="margin-top:6px"><option>kg</option><option>un</option><option>maço</option><option>dúzia</option></select>
  <button class="btn s" style="margin-top:8px" onclick="addP(${v.id})">+ Adicionar produto</button>
- <label>Entrega</label><div class="grid2"><select onchange="setE(${v.id},this.value)"><option value="1" ${v.ent?"selected":""}>Faço entrega</option><option value="0" ${v.ent?"":"selected"}>Só retirada</option></select><input type="number" value="${v.tx}" placeholder="Taxa R$" onchange="setT(${v.id},this.value)"></div><label>Trocar PIN</label><div class="grid2"><input id="np" type="password" inputmode="numeric" maxlength="4" placeholder="Novo PIN"><button class="btn s o" onclick="chPin(${v.id})">Salvar PIN</button></div><button class="btn s o" style="margin-top:10px" onclick="lock(${v.id})">Sair da banca</button>`;
+ <label>Entrega</label><div class="grid2"><div class="mut">Entrega e retirada sempre disponíveis. Taxa de entrega (R$):</div><input type="number" value="${v.tx}" placeholder="Taxa R$" onchange="setT(${v.id},this.value)"></div><label>Trocar PIN</label><div class="grid2"><input id="np" type="password" inputmode="numeric" maxlength="4" placeholder="Novo PIN"><button class="btn s o" onclick="chPin(${v.id})">Salvar PIN</button></div><button class="btn s o" style="margin-top:10px" onclick="lock(${v.id})">Sair da banca</button>`;
 }
 let unl={};
 function unlock(id){if($("lp").value===g(id).pin){unl[id]=true;renderMine()}else alert("PIN incorreto.")}
