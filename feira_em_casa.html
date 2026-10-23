@@ -43,7 +43,7 @@ h2{font-size:17px;margin:6px 0 10px}
   <div id="list">
     <div class="card" style="background:var(--pri2)"><b>A feira de Senhor do Bonfim na porta da sua casa 🛵</b><div class="mut">Escolha o feirante, veja os preços e peça pelo WhatsApp. (Versão de demonstração: feirantes e preços fictícios.)</div></div><input id="q" placeholder="🔍 Buscar feirante ou produto (ex: tomate, banana, queijo)" oninput="render()">
     <div class="chips" id="cats"></div>
-    <div id="vendors"></div>
+    <div id="vendors"></div><div id="cbar"></div>
   </div>
   <div id="store" class="hide"></div>
   <div id="checkout" class="hide"></div>
@@ -85,50 +85,66 @@ V.forEach(v=>{if(!v.pin)v.pin="1234"});
 function save(){try{localStorage.setItem("fc_v2",JSON.stringify(V))}catch(e){}}
 const $=id=>document.getElementById(id), R=n=>"R$ "+n.toFixed(2).replace(".",",");
 function tab(n){[1,2,3].forEach(i=>{$("v"+i).classList.toggle("hide",n!=i);$("t"+i).classList.toggle("on",n==i)});if(n==2)renderMineSel();if(n==3)renderM()}
+/* carrinho multi-bancas */
+let cli={};try{const s=localStorage.getItem("fc_cli");if(s)cli=JSON.parse(s)}catch(x){}
+const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function cnt(){let n=0,t=0,b=0;for(const id in cart){const v=g(id);let k=0;for(const i in cart[id]){k+=cart[id][i];t+=v.p[i][1]*cart[id][i]}if(k){n+=k;b++}}return{n,t,b}}
+function cartBar(){const c=cnt();return c.n?`<div class="bar" onclick="goCheckout()"><span>🛒 ${c.n} item(ns) • ${c.b} banca(s)</span><span>${R(c.t)} → Finalizar</span></div>`:""}
 function render(){
  $("cats").innerHTML=CATS.map(c=>`<button class="chip ${c==cat?"on":""}" onclick="cat='${c}';render()">${c}</button>`).join("");
  const q=$("q").value.toLowerCase();
  const l=V.filter(v=>(cat=="Todos"||v.c==cat)&&(!q||v.n.toLowerCase().includes(q)||v.p.some(p=>p[0].toLowerCase().includes(q))));
- $("vendors").innerHTML=l.length?l.map(v=>`<div class="card"><div class="row"><div><b>${v.n}</b><div class="mut">📍 ${v.loc}</div></div><span class="mut">⭐ ${v.nota}</span></div>
+ $("vendors").innerHTML=l.length?l.map(v=>`<div class="card"><div class="row"><div><b>${esc(v.n)}</b><div class="mut">📍 ${esc(v.loc)}</div></div><span class="mut">⭐ ${v.nota}</span></div>
  <div style="margin:8px 0"><span class="tag">${v.c}</span>${v.ent?`<span class="tag">🛵 Entrega ${v.tx?R(v.tx):"grátis"}</span>`:`<span class="tag">Só retirada</span>`}</div>
  <div class="mut">${v.p.slice(0,3).map(p=>p[0]+" "+R(p[1])+"/"+p[2]).join(" • ")}</div>
- <button class="btn s" style="margin-top:10px" onclick="openStore(${v.id})">Ver preços e pedir</button></div>`).join(""):`<p class="mut">Nenhum feirante encontrado.</p>`;
-}
-function openStore(id){cur=V.find(v=>v.id==id);cart={};$("list").classList.add("hide");$("checkout").classList.add("hide");$("store").classList.remove("hide");renderStore()}
-function back(){$("store").classList.add("hide");$("checkout").classList.add("hide");$("list").classList.remove("hide")}
+ <button class="btn s" style="margin-top:10px" onclick="openStore(${v.id})">Ver preços e adicionar</button></div>`).join(""):`<p class="mut">Nenhum feirante encontrado.</p>`;
+ $("cbar").innerHTML=cartBar()}
+function openStore(id){cur=V.find(v=>v.id==id);$("list").classList.add("hide");$("checkout").classList.add("hide");$("store").classList.remove("hide");renderStore()}
+function back(){$("store").classList.add("hide");$("checkout").classList.add("hide");$("list").classList.remove("hide");render()}
 function renderStore(){
- const v=cur,tot=total(),n=Object.values(cart).reduce((a,b)=>a+b,0);
- $("store").innerHTML=`<button class="btn s o" onclick="back()">← Voltar</button><h2 style="margin-top:12px">${v.n}</h2><div class="mut">📍 ${v.loc} • ${v.ent?"Entrega "+(v.tx?R(v.tx):"grátis")+" • Pedido mín. "+R(v.min):"Somente retirada"}</div><div style="margin-top:12px">`+
- v.p.map((p,i)=>`<div class="card row"><div><b>${p[0]}</b><div class="mut">${R(p[1])} / ${p[2]}</div></div><div class="qty"><button onclick="chg(${i},-1)">−</button><span>${cart[i]||0}</span><button onclick="chg(${i},1)">+</button></div></div>`).join("")+`</div>`+
- (n?`<div class="bar" onclick="goCheckout()"><span>🛒 ${n} item(ns)</span><span>${R(tot)} → Finalizar</span></div>`:"");
-}
-function chg(i,d){cart[i]=Math.max(0,(cart[i]||0)+d);if(!cart[i])delete cart[i];renderStore()}
-function total(){return Object.entries(cart).reduce((a,[i,q])=>a+cur.p[i][1]*q,0)}
+ const v=cur,c=cart[v.id]||{};
+ $("store").innerHTML=`<button class="btn s o" onclick="back()">← Voltar e escolher outras bancas</button><h2 style="margin-top:12px">${esc(v.n)}</h2><div class="mut">📍 ${esc(v.loc)} • ${v.ent?"Entrega "+(v.tx?R(v.tx):"grátis")+" • Pedido mín. "+R(v.min):"Somente retirada"}</div><div style="margin-top:12px">`+
+ v.p.map((p,i)=>`<div class="card row"><div><b>${esc(p[0])}</b><div class="mut">${R(p[1])} / ${p[2]}</div></div><div class="qty"><button onclick="chg(${i},-1)">−</button><span>${c[i]||0}</span><button onclick="chg(${i},1)">+</button></div></div>`).join("")+`</div>`+cartBar()}
+function chg(i,d){const id=cur.id;cart[id]=cart[id]||{};cart[id][i]=Math.max(0,(cart[id][i]||0)+d);if(!cart[id][i])delete cart[id][i];if(!Object.keys(cart[id]).length)delete cart[id];renderStore()}
+function chgc(id,i,d){readForm();cart[id][i]=Math.max(0,(cart[id][i]||0)+d);if(!cart[id][i])delete cart[id][i];if(!Object.keys(cart[id]).length)delete cart[id];if(!Object.keys(cart).length)return back();goCheckout()}
+function readForm(){if(!$("cNome"))return;cli={n:$("cNome").value.trim(),tel:$("cTel").value.replace(/\D/g,""),rua:$("cRua").value.trim(),bai:$("cBai").value.trim(),ref:$("cRef").value.trim(),mod:$("cMod").value,pag:$("cPag").value,troco:$("cTroco").value,obs:$("cObs").value}}
+function calc(){const e=($("cMod")?$("cMod").value:"e")=="e";let sub=0,tx=0;const rows=Object.keys(cart).map(id=>{const v=g(id);let s=0;for(const i in cart[id])s+=v.p[i][1]*cart[id][i];sub+=s;const t=e?v.tx:0;tx+=t;return{v,s,t}});return{e,sub,tx,rows}}
 function goCheckout(){
- const v=cur,sub=total();$("store").classList.add("hide");$("checkout").classList.remove("hide");
- $("checkout").innerHTML=`<button class="btn s o" onclick="$('checkout').classList.add('hide');$('store').classList.remove('hide')">← Voltar</button><h2 style="margin-top:12px">Finalizar pedido</h2>
- <div class="card">${Object.entries(cart).map(([i,q])=>`<div class="row"><span>${q}x ${v.p[i][0]}</span><span>${R(v.p[i][1]*q)}</span></div>`).join("")}</div>
- <label>Seu nome</label><input id="cn"><label>Como receber</label>
- <select id="cm" onchange="upd()"><option value="e" ${v.ent?"":"disabled"}>🛵 Entrega em casa</option><option value="r">🏪 Retirar na feira</option></select>
- <div id="ad"><label>Endereço completo</label><textarea id="ca" rows="2" placeholder="Rua, número, bairro, referência"></textarea></div>
- <div class="grid2"><div><label>Pagamento</label><select id="cp"><option>Pix</option><option>Dinheiro</option><option>Cartão na entrega</option></select></div><div><label>Troco para (opcional)</label><input id="ct" placeholder="R$"></div></div>
- <label>Observações</label><textarea id="co" rows="2" placeholder="Ex: tomate mais verde, sem cebola miúda"></textarea>
- <div class="card" style="margin-top:12px" id="sum"></div>
- <button class="btn" style="width:100%" onclick="send()">Enviar pedido pelo WhatsApp</button>`;
- if(!v.ent)$("cm").value="r";upd();
-}
-function upd(){const e=$("cm").value=="e";$("ad").classList.toggle("hide",!e);const sub=total(),tx=e?cur.tx:0;
- $("sum").innerHTML=`<div class="row"><span>Subtotal</span><span>${R(sub)}</span></div><div class="row"><span>Entrega</span><span>${R(tx)}</span></div><div class="row"><b>Total</b><b>${R(sub+tx)}</b></div>`+(e&&sub<cur.min?`<div class="mut" style="color:#c62828">Pedido mínimo para entrega: ${R(cur.min)}</div>`:"")}
+ readForm();const c=cli;
+ $("list").classList.add("hide");$("store").classList.add("hide");$("checkout").classList.remove("hide");
+ $("checkout").innerHTML=`<button class="btn s o" onclick="readForm();back()">← Voltar e adicionar mais</button><h2 style="margin-top:12px">Seu carrinho</h2>`+
+ Object.keys(cart).map(id=>{const v=g(id);let sub=0;return `<div class="card"><b>${esc(v.n)}</b><div class="mut">📍 ${esc(v.loc)}</div>`+Object.entries(cart[id]).map(([i,q])=>{sub+=v.p[i][1]*q;return `<div class="row" style="margin-top:8px"><span>${esc(v.p[i][0])} <span class="mut">${R(v.p[i][1])}/${v.p[i][2]}</span></span><div class="qty"><button onclick="chgc(${v.id},${i},-1)">−</button><span>${q}</span><button onclick="chgc(${v.id},${i},1)">+</button></div></div>`}).join("")+`<div class="row" style="margin-top:8px"><b>Subtotal</b><b>${R(sub)}</b></div></div>`}).join("")+
+ `<h2>Seus dados</h2><label>Seu nome</label><input id="cNome" value="${esc(c.n)}"><label>Seu WhatsApp (com DDD)</label><input id="cTel" inputmode="tel" placeholder="74999999999" value="${esc(c.tel)}"><label>Como receber</label><select id="cMod" onchange="upd()"><option value="e">🛵 Entrega em casa</option><option value="r">🏪 Retirar na feira</option></select><div id="ad"><label>Rua e número</label><input id="cRua" value="${esc(c.rua)}"><label>Bairro</label><input id="cBai" value="${esc(c.bai)}"><label>Ponto de referência</label><input id="cRef" value="${esc(c.ref)}"></div><div class="grid2"><div><label>Pagamento</label><select id="cPag"><option>Pix</option><option>Dinheiro</option><option>Cartão na entrega</option></select></div><div><label>Troco para (opcional)</label><input id="cTroco" placeholder="R$"></div></div><label>Observações</label><textarea id="cObs" rows="2" placeholder="Ex: tomate mais verde"></textarea><div class="card" style="margin-top:12px" id="sum"></div><button class="btn" style="width:100%" onclick="send()">Enviar pedidos pelo WhatsApp</button>`;
+ if(c.mod)$("cMod").value=c.mod;if(c.pag)$("cPag").value=c.pag;if(c.troco)$("cTroco").value=c.troco;if(c.obs)$("cObs").value=c.obs;
+ upd()}
+function upd(){const k=calc();$("ad").classList.toggle("hide",!k.e);
+ $("sum").innerHTML=k.rows.map(r=>`<div class="row"><span>${esc(r.v.n)}</span><span>${R(r.s)}</span></div>`).join("")+`<div class="row"><span>Taxas de entrega</span><span>${R(k.tx)}</span></div><div class="row"><b>Total</b><b>${R(k.sub+k.tx)}</b></div>`+
+ (k.e?k.rows.filter(r=>!r.v.ent).map(r=>`<div class="mut" style="color:#c62828">${esc(r.v.n)} só faz retirada.</div>`).join("")+k.rows.filter(r=>r.v.ent&&r.s<r.v.min).map(r=>`<div class="mut" style="color:#c62828">${esc(r.v.n)}: pedido mínimo de ${R(r.v.min)} para entrega.</div>`).join(""):"")}
 function send(){
- const e=$("cm").value=="e",sub=total();
- if(!$("cn").value.trim())return alert("Informe seu nome.");
- if(e&&!$("ca").value.trim())return alert("Informe o endereço.");
- if(e&&sub<cur.min)return alert("Pedido abaixo do mínimo para entrega.");
- const tx=e?cur.tx:0;
- let m=`*Novo pedido - Feira em Casa*\nCliente: ${$("cn").value}\n\n`+Object.entries(cart).map(([i,q])=>`• ${q}x ${cur.p[i][0]} (${R(cur.p[i][1])}/${cur.p[i][2]})`).join("\n")+`\n\nSubtotal: ${R(sub)}\nEntrega: ${R(tx)}\n*Total: ${R(sub+tx)}*\n${e?"Entrega em: "+$("ca").value:"Retirada na feira"}\nPagamento: ${$("cp").value}${$("ct").value?" (troco p/ "+$("ct").value+")":""}${$("co").value?"\nObs: "+$("co").value:""}`;
- const a=document.createElement("a");a.href="https://wa.me/55"+cur.w+"?text="+encodeURIComponent(m);a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();
- lastOrder={e,sub,tx,addr:$("ca").value,nome:$("cn").value,pg:$("cp").value,v:cur};if(e)setTimeout(askRider,400);
-}
+ readForm();const k=calc();
+ if(!cli.n)return alert("Informe seu nome.");
+ if(cli.tel.length<10)return alert("Informe seu WhatsApp com DDD.");
+ if(k.e){if(!cli.rua||!cli.bai)return alert("Informe rua, número e bairro.");
+  const bad=k.rows.find(r=>!r.v.ent||r.s<r.v.min);
+  if(bad)return alert(bad.v.ent?bad.v.n+": abaixo do pedido mínimo para entrega.":bad.v.n+" só faz retirada. Escolha retirar ou remova essa banca.")}
+ try{localStorage.setItem("fc_cli",JSON.stringify(cli))}catch(x){}
+ const addr=k.e?`${cli.rua}, ${cli.bai}${cli.ref?" ("+cli.ref+")":""}`:"";
+ const orders=k.rows.map(r=>{
+  const it=Object.entries(cart[r.v.id]).map(([i,q])=>`• ${q}x ${r.v.p[i][0]} (${R(r.v.p[i][1])}/${r.v.p[i][2]})`).join("\n");
+  const msg=`*Novo pedido - Feira em Casa*\nCliente: ${cli.n}\nWhatsApp: ${cli.tel}\n\n${it}\n\nSubtotal: ${R(r.s)}\nEntrega: ${R(r.t)}\n*Total: ${R(r.s+r.t)}*\n${k.e?"Entrega em: "+addr:"Retirada na feira"}\nPagamento: ${cli.pag}${cli.troco?" (troco p/ "+cli.troco+")":""}${cli.obs?"\nObs: "+cli.obs:""}`;
+  return{v:r.v,sub:r.s,tx:r.t,link:"https://wa.me/55"+r.v.w+"?text="+encodeURIComponent(msg)}});
+ lastOrder={e:k.e,cli:{...cli},addr,pg:cli.pag,sub:k.sub,tx:k.tx,orders};showSend()}
+function showSend(){
+ const L=lastOrder,n=M.filter(m=>m.disp).length;
+ $("checkout").innerHTML=`<div class="card"><h2>✅ Pedido pronto!</h2><p class="mut">Envie o pedido de cada banca pelo WhatsApp (toque em cada botão):</p>`+
+ L.orders.map((o,k)=>`<a class="btn" style="display:block;margin-bottom:8px;text-align:center" target="_blank" rel="noopener" href="${o.link}" onclick="markSent(this,${k})">📲 Enviar para ${esc(o.v.n)} • ${R(o.sub+o.tx)}</a>`).join("")+
+ (L.e?`<hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><p><b>${n}</b> motoqueiro(s) disponível(is) agora.</p>${n?`<button class="btn" style="width:100%" onclick="callRider()">🛵 Chamar motoqueiro</button>`:`<p class="mut">Nenhum motoqueiro disponível. Você pode avisar um contato seu:</p><a class="btn" target="_blank" rel="noopener" href="${riderLink(null)}">Enviar para um contato</a>`}`:"")+
+ `<div id="called"></div><button class="btn o" style="width:100%;margin-top:12px" onclick="finish()">Concluir e voltar ao início</button></div>`}
+function markSent(a,k){a.textContent="✓ Enviado: "+lastOrder.orders[k].v.n}
+function finish(){cart={};back()}
+function riderLink(m){const L=lastOrder;
+ const msg=`*Chamado de entrega - Feira em Casa*\nRetirar em ${L.orders.length} banca(s):\n`+L.orders.map(o=>`• ${o.v.n} (${o.v.loc}) - contato: wa.me/55${o.v.w}`).join("\n")+`\n\nEntregar para: ${L.cli.n}\nWhatsApp: ${L.cli.tel}\nEndereço: ${L.addr}\nValor das feiras: ${R(L.sub)} (pagamento: ${L.pg})\nTaxa de entrega: ${R(L.tx)}\n\nPode fazer essa entrega? Responda por aqui.`;
+ return "https://wa.me/"+(m?"55"+m.w:"")+"?text="+encodeURIComponent(msg)}
 /* motoqueiros */
 let M=[{id:1,n:"João Moto",w:"74900000011",b:"Centro, Bairro Novo",vei:"Moto",disp:true},{id:2,n:"Carlos Entregas",w:"74900000012",b:"Centro e arredores",vei:"Moto",disp:true}],ri=0,lastOrder=null;
 try{const s=localStorage.getItem("fc_m2");if(s)M=JSON.parse(s)}catch(e){}
@@ -144,13 +160,6 @@ function addM(){
  const n=$("mn").value.trim(),w=$("mw").value.replace(/\D/g,"");if(!n||w.length<10)return alert("Informe nome e WhatsApp com DDD.");
  const id=Date.now();M.push({id,n,w,b:$("mb").value||"Toda a cidade",vei:$("mv").value,disp:true});saveM();
  $("mn").value="";$("mw").value="";$("mb").value="";$("msel").value=id;renderM();$("msel").value=id;renderMBox();alert("Motoqueiro cadastrado e disponível!")}
-function riderLink(m){const o=lastOrder,v=o.v;
- const msg=`*Chamado de entrega - Feira em Casa*\nRetirar em: ${v.n} (${v.loc})\nContato do feirante: wa.me/55${v.w}\n\nEntregar para: ${o.nome}\nEndereço: ${o.addr}\nValor da feira: ${R(o.sub)} (pagamento: ${o.pg})\nTaxa de entrega: ${R(o.tx)}\n\nPode fazer essa entrega? Responda por aqui.`;
- return "https://wa.me/"+(m?"55"+m.w:"")+"?text="+encodeURIComponent(msg)}
-function askRider(){
- const n=M.filter(m=>m.disp).length;
- $("store").classList.add("hide");$("checkout").classList.remove("hide");
- $("checkout").innerHTML=`<div class="card"><h2>✅ Pedido enviado ao feirante!</h2><p class="mut">Agora chame um motoqueiro para entregar sua feira.</p><p><b>${n}</b> motoqueiro(s) disponível(is) agora.</p>${n?`<button class="btn" style="width:100%" onclick="callRider()">🛵 Chamar motoqueiro</button>`:`<p class="mut">Nenhum motoqueiro disponível no momento. Você pode avisar um contato seu:</p><a class="btn" target="_blank" rel="noopener" href="${riderLink(null)}">Enviar para um contato</a>`}<div id="called"></div><button class="btn o" style="width:100%;margin-top:10px" onclick="back()">Voltar ao início</button></div>`}
 function callRider(){
  const av=M.filter(m=>m.disp);if(!av.length)return;
  const m=av[ri%av.length];ri++;
