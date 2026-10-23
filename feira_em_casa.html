@@ -43,14 +43,14 @@ h2{font-size:17px;margin:6px 0 10px}
   <div id="list">
     <div class="card" style="background:var(--pri2)"><b>A feira de Senhor do Bonfim na porta da sua casa 🛵</b><div class="mut">Escolha o feirante, veja os preços e peça pelo WhatsApp. (Versão de demonstração: feirantes e preços fictícios.)</div></div><input id="q" placeholder="🔍 Buscar feirante ou produto (ex: tomate, banana, queijo)" oninput="render()">
     <div class="chips" id="cats"></div>
-    <div id="vendors"></div><div id="cbar"></div>
+    <div id="vendors"></div><div class="card" style="background:var(--pri2)"><b>💰 Precisa de crédito?</b><div class="mut">Peça um orçamento de empréstimo pelo WhatsApp, sem compromisso.</div><button class="btn s" style="margin-top:8px" onclick="tab(4)">Pedir orçamento</button></div><div id="cbar"></div>
   </div>
   <div id="store" class="hide"></div>
   <div id="checkout" class="hide"></div>
 </section>
 <!-- FEIRANTE -->
 <section id="v2" class="hide">
-  <div class="card" style="background:var(--pri2)"><h2>Feirante, venda mais com a Feira em Casa 🌿</h2><div style="line-height:1.6">✅ Seus clientes veem seus preços e pedem de casa<br>✅ O pedido chega pronto no seu WhatsApp, sem confusão<br>✅ Você atualiza preços na hora, quando quiser<br>✅ Sem mensalidade no piloto e sem precisar de máquina de cartão<br>✅ Mais clientes sem aumentar sua banca</div><a class="btn" style="margin-top:12px" target="_blank" rel="noopener" href="https://wa.me/?text=Quero%20participar%20da%20Feira%20em%20Casa%20de%20Senhor%20do%20Bonfim!">Quero participar</a></div>
+  <div class="card" style="background:var(--pri2)"><h2>Feirante, venda mais com a Feira em Casa 🌿</h2><div style="line-height:1.6">✅ Seus clientes veem seus preços e pedem de casa<br>✅ O pedido chega pronto no seu WhatsApp, sem confusão<br>✅ Você atualiza preços na hora, quando quiser<br>✅ Sem mensalidade no piloto e sem precisar de máquina de cartão<br>✅ Mais clientes sem aumentar sua banca</div><a class="btn" style="margin-top:12px" target="_blank" rel="noopener" href="https://wa.me/?text=Quero%20participar%20da%20Feira%20em%20Casa%20de%20Senhor%20do%20Bonfim!">Quero participar</a><button class="btn o" style="margin-top:12px;margin-left:6px" onclick="tab(4)">💰 Crédito para sua banca</button></div>
   <div class="card"><h2>Painel do feirante</h2>
     <label>Escolha sua banca</label><select id="mine" onchange="renderMine()"></select>
     <div id="mineBox"></div>
@@ -69,6 +69,13 @@ h2{font-size:17px;margin:6px 0 10px}
 <div class="card"><h2>Meu cadastro</h2><label>Escolha seu cadastro</label><select id="msel" onchange="renderMBox()"></select><div id="mbox"></div></div>
 <div class="card"><h2>Cadastrar motoqueiro</h2><label>Nome</label><input id="mn"><label>WhatsApp (com DDD)</label><input id="mw" placeholder="74999999999"><label>Bairros que atende</label><input id="mb" placeholder="Centro, Bairro Novo..."><label>Veículo</label><select id="mv"><option>Moto</option><option>Bicicleta</option><option>Carro</option></select><button class="btn" style="margin-top:12px" onclick="addM()">Cadastrar</button></div>
 </section>
+<section id="v4" class="hide">
+<button class="btn s o" onclick="tab(1)">← Voltar</button>
+<div class="card" style="margin-top:12px"><h2>💰 Orçamento de empréstimo</h2><div class="mut">Preencha e envie pelo WhatsApp. Você recebe uma proposta sem compromisso, sujeita à análise da instituição financeira. Não envie CPF, senhas ou fotos de documentos por aqui.</div>
+<label>Seu nome</label><input id="kn"><label>Seu WhatsApp (com DDD)</label><input id="kw" inputmode="tel" placeholder="74999999999"><label>Eu sou</label><select id="kp"><option>Cliente</option><option>Feirante</option><option>Comerciante</option><option>Motoqueiro</option></select><label>Valor desejado (R$)</label><input id="kv" inputmode="numeric" placeholder="Ex: 3000"><label>Prazo para pagar</label><select id="kz"><option>6 meses</option><option>12 meses</option><option>18 meses</option><option>24 meses</option><option>36 meses</option></select><label>Para que vai usar? (opcional)</label><input id="kf" placeholder="Ex: capital de giro, reforma da banca">
+<label style="display:flex;gap:8px;align-items:flex-start;margin-top:14px"><input id="kok" type="checkbox" style="width:auto;margin-top:2px"><span>Autorizo o envio destes dados para receber um orçamento de crédito.</span></label>
+<button class="btn" style="width:100%;margin-top:12px" onclick="sendCred()">Pedir orçamento pelo WhatsApp</button></div>
+</section>
 </main>
 <script>
 const CATS=["Todos","Hortifrúti","Frutas","Carnes","Peixes","Queijos e Laticínios","Temperos e Grãos","Lanches e Pastel"];
@@ -84,7 +91,7 @@ try{const s=localStorage.getItem("fc_v2");if(s)V=JSON.parse(s)}catch(e){}
 V.forEach(v=>{if(!v.pin)v.pin="1234"});
 function save(){try{localStorage.setItem("fc_v2",JSON.stringify(V))}catch(e){}}
 const $=id=>document.getElementById(id), R=n=>"R$ "+n.toFixed(2).replace(".",",");
-function tab(n){[1,2,3].forEach(i=>{$("v"+i).classList.toggle("hide",n!=i);$("t"+i).classList.toggle("on",n==i)});if(n==2)renderMineSel();if(n==3)renderM()}
+function tab(n){[1,2,3,4].forEach(i=>{$("v"+i).classList.toggle("hide",n!=i);const t=$("t"+i);if(t)t.classList.toggle("on",n==i)});window.scrollTo(0,0);if(n==2)renderMineSel();if(n==3)renderM()}
 /* carrinho multi-bancas */
 let cli={};try{const s=localStorage.getItem("fc_cli");if(s)cli=JSON.parse(s)}catch(x){}
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -145,6 +152,15 @@ function finish(){cart={};back()}
 function riderLink(m){const L=lastOrder;
  const msg=`*Chamado de entrega - Feira em Casa*\nRetirar em ${L.orders.length} banca(s):\n`+L.orders.map(o=>`• ${o.v.n} (${o.v.loc}) - contato: wa.me/55${o.v.w}`).join("\n")+`\n\nEntregar para: ${L.cli.n}\nWhatsApp: ${L.cli.tel}\nEndereço: ${L.addr}\nValor das feiras: ${R(L.sub)} (pagamento: ${L.pg})\nTaxa de entrega: ${R(L.tx)}\n\nPode fazer essa entrega? Responda por aqui.`;
  return "https://wa.me/"+(m?"55"+m.w:"")+"?text="+encodeURIComponent(msg)}
+/* crédito */
+const ZAP_ORG=""; /* coloque aqui o seu WhatsApp com DDD, ex: 74999999999 */
+function sendCred(){
+ const n=$("kn").value.trim(),w=$("kw").value.replace(/\D/g,""),v=$("kv").value.trim();
+ if(!n||w.length<10)return alert("Informe nome e WhatsApp com DDD.");
+ if(!v)return alert("Informe o valor desejado.");
+ if(!$("kok").checked)return alert("Marque a autorização para continuar.");
+ const msg=`*Pedido de orçamento de crédito - Feira em Casa*\nNome: ${n}\nWhatsApp: ${w}\nPerfil: ${$("kp").value}\nValor desejado: R$ ${v}\nPrazo: ${$("kz").value}\nFinalidade: ${$("kf").value||"não informada"}\nCidade: Senhor do Bonfim - BA`;
+ const a=document.createElement("a");a.href="https://wa.me/"+(ZAP_ORG?"55"+ZAP_ORG:"")+"?text="+encodeURIComponent(msg);a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove()}
 /* motoqueiros */
 let M=[{id:1,n:"João Moto",w:"74900000011",b:"Centro, Bairro Novo",vei:"Moto",disp:true},{id:2,n:"Carlos Entregas",w:"74900000012",b:"Centro e arredores",vei:"Moto",disp:true}],ri=0,lastOrder=null;
 try{const s=localStorage.getItem("fc_m2");if(s)M=JSON.parse(s)}catch(e){}
